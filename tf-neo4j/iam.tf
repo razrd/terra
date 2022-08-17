@@ -4,18 +4,21 @@ data "aws_iam_policy_document" "instances" {
     resources = ["*"]
     actions   = [
       "ec2:DescribeInstances",
+      "ec2:DescribeInstanceStatus",
       "ec2:DescribeVolume*",
+      "ec2:DescribeVolumeStatus",
+      "ec2:DescribeSnapshots"
     ]
   }
 }
 
 resource "aws_iam_policy" "instances" {
-  name   = "${var.project}-${var.environment}-${var.name}-policy"
+  name   = "CustomerManaged_${var.project}_${var.environment}_${var.name}_ec2-desc"
   policy = data.aws_iam_policy_document.instances.json
 }
 
 resource "aws_iam_role_policy_attachment" "instances_core" {
-  role       = module.neo4j.role_id
+  role       = try(module.neo4j.role_id,"")
   policy_arn = aws_iam_policy.instances.arn
 }
 
@@ -35,7 +38,7 @@ data "aws_iam_policy_document" "cwlogs" {
 
 resource "aws_iam_policy" "cwlogs" {
   count  = var.cloudwatch_logs_enabled ? 1 : 0
-  name   = "${var.project}-${var.environment}-${var.name}-cwlogs"
+  name   = "CustomerManaged_${var.project}_${var.environment}_${var.name}_cwlog-write"
   policy = data.aws_iam_policy_document.cwlogs.json
 }
 

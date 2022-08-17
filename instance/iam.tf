@@ -1,12 +1,12 @@
 resource "aws_iam_instance_profile" "profile" {
-  count = var.instance_count == 0 ? 0 : 1
-  name  = "profile_${var.name}_${var.project}_${var.environment}"
+  count = (var.create_instance_profile && var.instance_count != 0) ? 1 : 0
+  name  = "CustomerManaged_${var.project}_${var.environment}_${var.name}"
   role  = aws_iam_role.role[0].name
 }
 
 resource "aws_iam_role" "role" {
-  count = var.instance_count == 0 ? 0 : 1
-  name  = "role_${var.name}_${var.project}_${var.environment}"
+  count = (var.create_instance_profile && var.instance_count != 0) ? 1 : 0
+  name  = "CustomerManaged_${var.project}_${var.environment}_${var.name}"
 
   assume_role_policy = <<EOF
 {
@@ -27,8 +27,8 @@ EOF
 }
 
 resource "aws_iam_policy" "policy" {
-  count = var.instance_count == 0 ? 0 : 1
-  name        = "policy_${var.name}_${var.project}_${var.environment}_s3"
+  count = (var.create_instance_profile && var.instance_count != 0) ? 1 : 0
+  name        = "CustomerManaged_${var.project}_${var.environment}_${var.name}_s3-policy"
   # Terraform's "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
   policy = jsonencode({
@@ -53,8 +53,8 @@ resource "aws_iam_policy" "policy" {
                 "s3:List*"
             ],
             "Resource": [
-                "arn:aws:s3:::lab01s3tf/*",
-                "arn:aws:s3:::lab01s3tf"
+                "arn:aws:s3:::${var.iam_s3_bucket_ref}/*",
+                "arn:aws:s3:::${var.iam_s3_bucket_ref}"
             ]
         },
     ]
@@ -63,6 +63,7 @@ resource "aws_iam_policy" "policy" {
 
 
 resource "aws_iam_role_policy_attachment" "policy_atach_role" {
-  role       = aws_iam_role.role[0].name
-  policy_arn = aws_iam_policy.policy[0].arn
+  count = var.create_instance_profile ? 1 : 0
+  role       = try(aws_iam_role.role[0].name,"")
+  policy_arn = try(aws_iam_policy.policy[0].arn,"")
 }

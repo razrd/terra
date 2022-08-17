@@ -39,13 +39,13 @@ output "instance_subnet_ids" {
 }
 
 output "role_id" {
-  value = aws_iam_role.role[0].id
+  value = try(aws_iam_role.role[0].id,var.instance_profile)
 }
 
 output "role_name" {
-  value = aws_iam_role.role[0].name
+  value = try(aws_iam_role.role[0].name,"")
 }
 
 output "policy_name" {
-  value = aws_iam_policy.policy[0].name
+  value = try(aws_iam_policy.policy[0].name,"")
 }

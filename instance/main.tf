@@ -8,12 +8,13 @@ resource "aws_instance" "instance" {
   ami                         = var.ami
   instance_type               = var.instance_type
   key_name                    = var.key_name
-  iam_instance_profile        = aws_iam_instance_profile.profile[0].id
+  iam_instance_profile        = var.create_instance_profile ? aws_iam_instance_profile.profile[0].id : var.instance_profile
   vpc_security_group_ids      = var.sgs
   subnet_id                   = element(var.subnets, count.index)
   disable_api_termination     = var.termination_protection
   ebs_optimized               = module.is_ebs_optimised.is_ebs_optimised
   associate_public_ip_address = var.public_ip
+
   user_data                   = fileexists(var.user_data[0]) ? file(var.user_data[0]) : var.user_data[0]
 
   metadata_options {
@@ -26,6 +27,8 @@ resource "aws_instance" "instance" {
     volume_type           = var.root_vl_type
     volume_size           = var.root_vl_size
     delete_on_termination = var.root_vl_delete
+    encrypted             = var.root_vl_encrypt
+    kms_key_id            = var.root_vl_kms_key_id
   }
 
   dynamic "ebs_block_device" {
