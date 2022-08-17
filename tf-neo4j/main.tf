@@ -9,8 +9,11 @@ module "neo4j" {
   termination_protection = var.termination_protection
   key_name               = var.key_name
   subnets                = var.subnet_ids
-  sgs                    = [aws_security_group.sg.id,var.security_group_ids[0]]
+  sgs                    = [aws_security_group.sg.id, var.security_group_ids[0]]
   user_data              = data.template_cloudinit_config.userdata.*.rendered
+  root_vl_encrypt        = var.root_vl_encrypt
+  create_instance_profile = var.create_instance_profile
+  instance_profile        = var.instance_profile
 
   tags = merge(
     var.tags,
@@ -26,6 +29,8 @@ resource "aws_ebs_volume" "ebs_data_block" {
   size              = var.volume_size
   type              = var.volume_type
   iops              = var.volume_iops
+  encrypted         = var.data_block_encrypted
+  kms_key_id        = var.data_block_kms_key_id
 
   tags = merge(
     var.tags,

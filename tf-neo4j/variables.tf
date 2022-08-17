@@ -76,25 +76,25 @@ variable "vpc_id" {
 
 variable "subnet_ids" {
   description = "List(required): Subnet IDs where to deploy the cluster"
-  type        = "list"
+  type        = list
   default     = []
 }
 
 variable "security_group_ids" {
   description = "List(optional, []): Extra security group IDs to attach to the cluster. Note: a default SG is already created and exposed via outputs"
-  type        = "list"
+  type        = list
   default     = []
 }
 
 variable "client_sg_ids" {
   description = "List(optional, []): Security group IDs for client access to the cluster, via Bolt and/or HTTP(S)"
-  type        = "list"
+  type        = list
   default     = []
 }
 
 variable "backup_sg_ids" {
   description = "List(optional, []): Security group IDs for the backup client(s)"
-  type        = "list"
+  type        = list
   default     = []
 }
 
@@ -170,6 +170,37 @@ variable "r53_domain" {
 
 variable "tags" {
   description = "Map(optional, {}): Optional tags"
-  type        = "map"
+  type        = map
   default     = {}
+}
+
+variable "root_vl_kms_key_id" {
+  default = ""
+  description = "(string:optional) KMS Key for the root volume"
+}
+
+variable "root_vl_encrypt" {
+  default = false
+  description = "(bool) Encrypt the root volume with AWS Key"
+}
+
+variable "data_block_kms_key_id" {
+  default = ""
+  description = "(string:optional) KMS Key for the data volume"
+}
+
+variable "data_block_encrypted" {
+  default = false
+  description = "(bool) Encrypt the data volume with AWS Key"
+}
+
+variable "create_instance_profile" {
+  default = false
+  description = "(boolean:optional) enables creation of iam. "
+  type = bool
+}
+
+variable "instance_profile" {
+  default = ""
+  description = "(string:optional) When create_instance_profile is false set this. "
 }
