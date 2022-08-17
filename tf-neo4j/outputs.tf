@@ -32,3 +32,8 @@ output "instance_private_ips" {
   description = "List: The private IP address assigned to the instances"
   value       = "${module.neo4j.instance_private_ip}"
 }
+
+output "route53_fqdns" {
+  description = "List: Route 53 fqdns applied"
+  value       = aws_route53_record.dns_record.*.fqdn
+}

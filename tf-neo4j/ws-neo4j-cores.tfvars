@@ -40,6 +40,4 @@ https_enabled = true
 
 backup_enabled = false
 
-r53_domain = "cmcloudlab379.info"
-
-
+r53_domain = "cmcloudlab1602.info"
