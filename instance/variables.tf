@@ -117,3 +117,9 @@ variable "iam_s3_bucket_ref" {
   description = "(string:required) S3 bucket for IAM read/write, mainly used for tf state"
   default = "lab01s3tf"
 }
+
+variable "role_permissions_boundary" {
+  description = "(string:optional) permission boundary"
+  default = ""
+  type = string
+}

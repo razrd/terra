@@ -23,3 +23,5 @@ tags = {
 create_instance_profile = true
 instance_profile = "CustomerManaged_tflab_develop_instance-role"
 root_vl_encrypt = true
+
+role_permissions_boundary = ""
