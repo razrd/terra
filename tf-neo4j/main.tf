@@ -14,6 +14,7 @@ module "neo4j" {
   root_vl_encrypt        = var.root_vl_encrypt
   create_instance_profile = var.create_instance_profile
   instance_profile        = var.instance_profile
+  iam_s3_bucket_ref       = var.s3_bucket_ref
 
   tags = merge(
     var.tags,
@@ -94,17 +95,15 @@ EOF
 #!/bin/bash
 
 logMsg() {
-    echo -ne "HERE>>>>> INFO  : $1\n"
-}
-logErr() {
-    echo -ne "HERE>>>>> ERROR : $1\n"
+    date=`date +%d-%b-%y" "%H:%M:%S`
+    echo -ne "HERE>>>>> $date : INFO  : $1\n"
 }
 
 hasItRun() {
     statusCode=$1
     message="$2"
     if [ $statusCode -eq 0 ]; then
-        logMsg "$message ..Executed OK"
+        logMsg "$message ..Executed OK, $statusCode"
     else
         logErr "$message ..Execution failed with code. $statusCode"
     fi
@@ -145,9 +144,7 @@ if ! $(blkid -p ${var.ebs_device_name} &>/dev/null); then
   ls -ltr /etc/fstab*
 fi
 
-# Make sure the mount path exists
-
-# Mount the drive
+# Mount the drives to check fstab errors
 mount -a
 ret=$?
 hasItRun "$ret" "${var.ebs_device_name} mount command worked fine?.."  
@@ -174,9 +171,9 @@ mkdir -p /var/neo4j/certificates/https/revoked
 mkdir -p /var/neo4j/certificates/bolt
 mkdir -p /var/neo4j/certificates/bolt/trusted
 mkdir -p /var/neo4j/certificates/bolt/revoked
-mkdir -p /var/neo4j/certificates/backup
-mkdir -p /var/neo4j/certificates/bolt/revoked
-mkdir -p /var/neo4j/certificates/bolt/trusted
+mkdir -p /var/neo4j/certificates/cluster
+mkdir -p /var/neo4j/certificates/cluster/revoked
+mkdir -p /var/neo4j/certificates/cluster/trusted
 mkdir -p /var/neo4j/data
 mkdir -p /var/neo4j/data/transactions
 mkdir -p /var/neo4j/data/dumps
@@ -196,4 +193,37 @@ echo "neo4j        hard  nofile  50000" >> /etc/security/limits.conf
 chown -R neo4j:neo4j /var/neo4j 
   EOF
     }
+
+part {
+    content_type = "text/cloud-config"
+
+    content = <<EOF
+
+#!/bin/bash
+
+logMsg() {
+    date=`date +%d-%b-%y" "%H:%M:%S`
+    echo -ne "$date HERE>>>>> INFO  : $1\n"
+}
+
+TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
+AZID=`curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/availability-zone-id`
+
+logMsg "AZID: $AZID"
+
+aws s3 cp s3://${var.s3_bucket_ref}/infrastructure/graphdb/conf/$AZID${var.neo4j_key} /var/neo4j/conf/neo4j.conf
+chown neo4j:neo4j /var/neo4j/conf/neo4j.conf
+
+aws s3 cp s3://${var.s3_bucket_ref}/infrastructure/graphdb/licenses/bloom.license /var/neo4j/licenses/bloom.license
+chown neo4j:neo4j /var/neo4j/licenses/bloom.license
+
+aws s3 cp s3://${var.s3_bucket_ref}/infrastructure/graphdb/cert/private.key /var/neo4j/certificates/https/trusted
+chown neo4j:neo4j  /var/neo4j/certificates/https/trusted
+cp -fp /var/neo4j/certificates/https/trusted/private.key /var/neo4j/certificates/bolt/trusted
+cp -fp /var/neo4j/certificates/https/trusted/private.key /var/neo4j/certificates/cluster/trusted
+
+
+
+EOF
+  }
 }

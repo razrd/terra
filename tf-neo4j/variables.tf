@@ -204,3 +204,8 @@ variable "instance_profile" {
   default = ""
   description = "(string:optional) When create_instance_profile is false set this. "
 }
+
+variable "s3_bucket_ref" {
+  description = "(string:required) S3 bucket for IAM read/write, used for tf state and db confs"
+  default = "lab01s3tf"
+}

@@ -25,3 +25,5 @@ instance_profile = "CustomerManaged_tflab_develop_instance-role"
 root_vl_encrypt = true
 
 role_permissions_boundary = ""
+
+iam_s3_bucket_ref = "lab01s3tf"
