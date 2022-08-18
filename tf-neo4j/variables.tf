@@ -213,6 +213,41 @@ variable "s3_bucket_ref" {
 variable "nlb_enabled" {
   description = "(boolean:required) Enables NLB creation for instances"
   type = boolean
+  default =  false
+}
+
+variable "load_balancer_type" {
+  description = "(string:required) default set as network for nlb"
+  type = string
+  default =  "network"
+}
+
+variable "internal" {
+  description = "(boolean:required) default set as internal"
+  type = boolean
   default =  true
 }
 
+variable "idle_timeout" {
+  description = "(number:optional) idle timeout for the  nlb before closing connection"
+  default = 60
+}
+
+variable "enable_cross_zone_load_balancing" {
+  description = "(boolean:optional) cross az nlb setting"
+  type = boolean
+  default =  false
+}
+
+variable "enable_deletion_protection" {
+  description = "(boolean:optional) delete protect for nlb"
+  type = boolean
+  default =  false
+}
+  
+variable "ip_address_type" {
+  description = "(string:optional) default set as ipv4, other option /'dualstack'/"
+  type = string
+  default =  "ipv4"
+}
+  
