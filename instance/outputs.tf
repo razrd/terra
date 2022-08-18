@@ -49,3 +49,4 @@ output "role_name" {
 output "policy_name" {
   value = try(aws_iam_policy.policy[0].name,"")
 }
+

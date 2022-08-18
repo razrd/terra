@@ -15,6 +15,7 @@ module "neo4j" {
   create_instance_profile = var.create_instance_profile
   instance_profile        = var.instance_profile
   iam_s3_bucket_ref       = var.s3_bucket_ref
+  role_permissions_boundary = var.role_permissions_boundary
 
   tags = merge(
     var.tags,

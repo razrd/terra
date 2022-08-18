@@ -1,0 +1,2275 @@
+{
+  "version": 4,
+  "terraform_version": "1.2.7",
+  "serial": 1,
+  "lineage": "7aaaa3f0-9374-3056-7f75-7d8280d5f4a9",
+  "outputs": {
+    "instance_ids": {
+      "value": [
+        "i-0185af9d4fa38e1af",
+        "i-0afdeaf6b22afe4d4",
+        "i-07b34f13471d59592"
+      ],
+      "type": [
+        "tuple",
+        [
+          "string",
+          "string",
+          "string"
+        ]
+      ]
+    },
+    "instance_private_dns": {
+      "value": [
+        "ip-172-31-81-155.ec2.internal",
+        "ip-172-31-18-129.ec2.internal",
+        "ip-172-31-34-15.ec2.internal"
+      ],
+      "type": [
+        "tuple",
+        [
+          "string",
+          "string",
+          "string"
+        ]
+      ]
+    },
+    "instance_private_ips": {
+      "value": [
+        "172.31.81.155",
+        "172.31.18.129",
+        "172.31.34.15"
+      ],
+      "type": [
+        "tuple",
+        [
+          "string",
+          "string",
+          "string"
+        ]
+      ]
+    },
+    "instance_public_dns": {
+      "value": [
+        "",
+        "",
+        ""
+      ],
+      "type": [
+        "tuple",
+        [
+          "string",
+          "string",
+          "string"
+        ]
+      ]
+    },
+    "instance_public_ips": {
+      "value": [
+        "",
+        "",
+        ""
+      ],
+      "type": [
+        "tuple",
+        [
+          "string",
+          "string",
+          "string"
+        ]
+      ]
+    },
+    "instances_role_id": {
+      "value": "CustomerManaged_tflab_develop_neo4j",
+      "type": "string"
+    },
+    "route53_fqdns": {
+      "value": [
+        "tflab-neo4j-core-01.cmcloudlab737.info",
+        "tflab-neo4j-core-02.cmcloudlab737.info",
+        "tflab-neo4j-core-03.cmcloudlab737.info"
+      ],
+      "type": [
+        "tuple",
+        [
+          "string",
+          "string",
+          "string"
+        ]
+      ]
+    },
+    "sg_id": {
+      "value": "sg-027d834729e1adb8b",
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "mode": "data",
+      "type": "aws_iam_policy_document",
+      "name": "cwlogs",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "3442509011",
+            "json": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"\",\n      \"Effect\": \"Allow\",\n      \"Action\": [\n        \"logs:PutLogEvents\",\n        \"logs:DescribeLogStreams\",\n        \"logs:DescribeLogGroups\",\n        \"logs:CreateLogStream\",\n        \"logs:CreateLogGroup\"\n      ],\n      \"Resource\": \"*\"\n    }\n  ]\n}",
+            "override_json": null,
+            "override_policy_documents": null,
+            "policy_id": null,
+            "source_json": null,
+            "source_policy_documents": null,
+            "statement": [
+              {
+                "actions": [
+                  "logs:CreateLogGroup",
+                  "logs:CreateLogStream",
+                  "logs:DescribeLogGroups",
+                  "logs:DescribeLogStreams",
+                  "logs:PutLogEvents"
+                ],
+                "condition": [],
+                "effect": "Allow",
+                "not_actions": [],
+                "not_principals": [],
+                "not_resources": [],
+                "principals": [],
+                "resources": [
+                  "*"
+                ],
+                "sid": ""
+              }
+            ],
+            "version": "2012-10-17"
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "mode": "data",
+      "type": "aws_iam_policy_document",
+      "name": "instances",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "1708296928",
+            "json": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"\",\n      \"Effect\": \"Allow\",\n      \"Action\": [\n        \"ec2:DescribeVolumeStatus\",\n        \"ec2:DescribeVolume*\",\n        \"ec2:DescribeSnapshots\",\n        \"ec2:DescribeInstances\",\n        \"ec2:DescribeInstanceStatus\"\n      ],\n      \"Resource\": \"*\"\n    }\n  ]\n}",
+            "override_json": null,
+            "override_policy_documents": null,
+            "policy_id": null,
+            "source_json": null,
+            "source_policy_documents": null,
+            "statement": [
+              {
+                "actions": [
+                  "ec2:DescribeInstanceStatus",
+                  "ec2:DescribeInstances",
+                  "ec2:DescribeSnapshots",
+                  "ec2:DescribeVolume*",
+                  "ec2:DescribeVolumeStatus"
+                ],
+                "condition": [],
+                "effect": "Allow",
+                "not_actions": [],
+                "not_principals": [],
+                "not_resources": [],
+                "principals": [],
+                "resources": [
+                  "*"
+                ],
+                "sid": ""
+              }
+            ],
+            "version": "2012-10-17"
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "mode": "data",
+      "type": "aws_route53_zone",
+      "name": "domain",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:route53:::hostedzone/Z06581502AXE1J58OSN9N",
+            "caller_reference": "cmcloudlab737.info2021-08-23 21:36:11.247557",
+            "comment": "",
+            "id": "Z06581502AXE1J58OSN9N",
+            "linked_service_description": null,
+            "linked_service_principal": null,
+            "name": "cmcloudlab737.info",
+            "name_servers": [
+              "ns-1796.awsdns-32.co.uk",
+              "ns-25.awsdns-03.com",
+              "ns-1281.awsdns-32.org",
+              "ns-535.awsdns-02.net"
+            ],
+            "private_zone": false,
+            "resource_record_set_count": 5,
+            "tags": {},
+            "vpc_id": null,
+            "zone_id": "Z06581502AXE1J58OSN9N"
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "mode": "data",
+      "type": "template_cloudinit_config",
+      "name": "userdata",
+      "provider": "provider[\"registry.terraform.io/hashicorp/template\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "base64_encode": true,
+            "gzip": true,
+            "id": "3150567312",
+            "part": [
+              {
+                "content": "package_update:true    \r\npackages:\r\n  - awscli\r\n  - telnet\r\n  - git\r\n  - unzip\r\n  - zip\r\n",
+                "content_type": "text/cloud-config",
+                "filename": "",
+                "merge_type": ""
+              },
+              {
+                "content": "mounts:\r\n  - [ \"LABEL=NEO4J\", \"/var/neo4j\", ext4, \"defaults,nofail\", \"0\", \"2\" ]\r\nfs_setup:\r\n  - label: NEO4J\r\n    filesystem: ext4\r\n    device: \"/dev/xvdf\"\r\n    partition: auto\r\nruncmd:\r\n  - mkdir -p /var/neo4j\r\n",
+                "content_type": "text/cloud-config",
+                "filename": "",
+                "merge_type": ""
+              },
+              {
+                "content": "#!/bin/bash\r\n\r\nlogMsg() {\r\n    date=`date +%d-%b-%y\" \"%H:%M:%S`\r\n    echo -ne \"HERE\u003e\u003e\u003e\u003e\u003e $date : INFO  : $1\\n\"\r\n}\r\n\r\nhasItRun() {\r\n    statusCode=$1\r\n    message=\"$2\"\r\n    if [ $statusCode -eq 0 ]; then\r\n        logMsg \"$message ..Executed OK, $statusCode\"\r\n    else\r\n        logErr \"$message ..Execution failed with code. $statusCode\"\r\n    fi\r\n}\r\n\r\n# Wait for the EBS volumes to become ready\r\n\r\nlogMsg \"Waiting for EBS mount /dev/xvdf\"\r\naws --region $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/[a-z]$//') ec2 wait volume-in-use --filters Name=attachment.instance-id,Values=$(curl -s http://169.254.169.254/latest/meta-data/instance-id) Name=attachment.device,Values=/dev/xvdf\r\nret=$?\r\nhasItRun \"$ret\" \"/dev/xvdf is aws mounted?\"\r\n\r\n# Create FS and make entry into /etc/fstab\r\nif ! $(blkid -p /dev/xvdf \u0026\u003e/dev/null); then\r\n  logMsg \"/dev/xvdf is not mounted, First run...formatting device.\"\r\n  mkfs.ext4 \"/dev/xvdf\" -L NEO4J\r\n  ret=$?\r\n  hasItRun \"$ret\" \"/dev/xvdf is formatted?\"\r\n\r\n  logMsg \"Fetching UUID..\"\r\n  uuid=$(sudo blkid -p /dev/xvdf | awk '{print $3}' | sed 's/\"//g')\r\n  logMsg \"$uuid\"\r\n  cp -fp /etc/fstab /etc/fstab.bak\r\n\r\n  mkdir -p /var/neo4j\r\n  mount \"/dev/xvdf\" \"/var/neo4j\"\r\n  \r\n  logMsg \"Mount checks\"\r\n  df -k /var/neo4j\r\n\r\n  #Persist the setting \r\n  #UUID=a2fc8833-86dd-42c6-af77-6510651f4e3a     /           xfs    defaults,noatime  1   1\r\n  \r\n  echo \"$uuid     /var/neo4j           ext4    defaults,nofail  0   2\" \u003e\u003e /etc/fstab\r\n  ret=$?\r\n  hasItRun \"$ret\" \"Fstab entry\"\r\n\r\n  ls -ltr /etc/fstab*\r\nfi\r\n\r\n# Mount the drives to check fstab errors\r\nmount -a\r\nret=$?\r\nhasItRun \"$ret\" \"/dev/xvdf mount command worked fine?..\"  \r\n",
+                "content_type": "text/x-shellscript",
+                "filename": "",
+                "merge_type": ""
+              },
+              {
+                "content": "\r\n#!/bin/bash\r\n\r\nlogMsg() {\r\n    echo -ne \"HERE\u003e\u003e\u003e\u003e\u003e INFO  : $1\\n\"\r\n}\r\n\r\nlogMsg \"Setting users and directories\"\r\nadduser neo4j\r\nmkdir -p /var/neo4j/certificates\r\nmkdir -p /var/neo4j/certificates/https\r\nmkdir -p /var/neo4j/certificates/https/trusted\r\nmkdir -p /var/neo4j/certificates/https/revoked\r\nmkdir -p /var/neo4j/certificates/bolt\r\nmkdir -p /var/neo4j/certificates/bolt/trusted\r\nmkdir -p /var/neo4j/certificates/bolt/revoked\r\nmkdir -p /var/neo4j/certificates/cluster\r\nmkdir -p /var/neo4j/certificates/cluster/revoked\r\nmkdir -p /var/neo4j/certificates/cluster/trusted\r\nmkdir -p /var/neo4j/data\r\nmkdir -p /var/neo4j/data/transactions\r\nmkdir -p /var/neo4j/data/dumps\r\nmkdir -p /var/neo4j/data/backup\r\nmkdir -p /var/neo4j/licenses\r\nmkdir -p /var/neo4j/metrics\r\nmkdir -p /var/neo4j/plugins\r\nmkdir -p /var/neo4j/logs\r\nmkdir -p /var/neo4j/run\r\n\r\necho \"neo4j        soft  nproc  65536\" \u003e\u003e /etc/security/limits.conf\r\necho \"neo4j        hard  nproc  65536\" \u003e\u003e /etc/security/limits.conf\r\necho \"neo4j        soft  nofile  50000\" \u003e\u003e /etc/security/limits.conf\r\necho \"neo4j        hard  nofile  50000\" \u003e\u003e /etc/security/limits.conf\r\n#     \u003cdomain\u003e        \u003ctype\u003e  \u003citem\u003e  \u003cvalue\u003e\r\n\r\nchown -R neo4j:neo4j /var/neo4j \r\n",
+                "content_type": "text/x-shellscript",
+                "filename": "",
+                "merge_type": ""
+              },
+              {
+                "content": "\r\n#!/bin/bash\r\n\r\nlogMsg() {\r\n    date=`date +%d-%b-%y\" \"%H:%M:%S`\r\n    echo -ne \"$date HERE\u003e\u003e\u003e\u003e\u003e INFO  : $1\\n\"\r\n}\r\n\r\nTOKEN=`curl -X PUT \"http://169.254.169.254/latest/api/token\" -H \"X-aws-ec2-metadata-token-ttl-seconds: 21600\"`\r\nAZID=`curl -H \"X-aws-ec2-metadata-token: $TOKEN\" -v http://169.254.169.254/latest/meta-data/availability-zone-id`\r\n\r\nlogMsg \"AZID: $AZID\"\r\n\r\naws s3 cp s3://lab01s3tf/infrastructure/graphDB/conf/$AZIDcore /var/neo4j/conf/neo4j.conf\r\nchown neo4j:neo4j /var/neo4j/conf/neo4j.conf\r\n\r\n# Try to move from  Vault\r\naws s3 cp s3://lab01s3tf/infrastructure/graphDB/licenses/bloom.license /var/neo4j/licenses/bloom.license\r\nchown neo4j:neo4j /var/neo4j/licenses/bloom.license\r\n# Try to move from  Vault\r\naws s3 cp s3://lab01s3tf/infrastructure/graphDB/cert/private.key /var/neo4j/certificates/https/trusted\r\nchown neo4j:neo4j  /var/neo4j/certificates/https/trusted\r\ncp -fp /var/neo4j/certificates/https/trusted/private.key /var/neo4j/certificates/bolt/trusted\r\ncp -fp /var/neo4j/certificates/https/trusted/private.key /var/neo4j/certificates/cluster/trusted\r\n\r\n",
+                "content_type": "text/cloud-config",
+                "filename": "",
+                "merge_type": ""
+              }
+            ],
+            "rendered": "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"
+          },
+          "sensitive_attributes": []
+        },
+        {
+          "index_key": 1,
+          "schema_version": 0,
+          "attributes": {
+            "base64_encode": true,
+            "gzip": true,
+            "id": "3150567312",
+            "part": [
+              {
+                "content": "package_update:true    \r\npackages:\r\n  - awscli\r\n  - telnet\r\n  - git\r\n  - unzip\r\n  - zip\r\n",
+                "content_type": "text/cloud-config",
+                "filename": "",
+                "merge_type": ""
+              },
+              {
+                "content": "mounts:\r\n  - [ \"LABEL=NEO4J\", \"/var/neo4j\", ext4, \"defaults,nofail\", \"0\", \"2\" ]\r\nfs_setup:\r\n  - label: NEO4J\r\n    filesystem: ext4\r\n    device: \"/dev/xvdf\"\r\n    partition: auto\r\nruncmd:\r\n  - mkdir -p /var/neo4j\r\n",
+                "content_type": "text/cloud-config",
+                "filename": "",
+                "merge_type": ""
+              },
+              {
+                "content": "#!/bin/bash\r\n\r\nlogMsg() {\r\n    date=`date +%d-%b-%y\" \"%H:%M:%S`\r\n    echo -ne \"HERE\u003e\u003e\u003e\u003e\u003e $date : INFO  : $1\\n\"\r\n}\r\n\r\nhasItRun() {\r\n    statusCode=$1\r\n    message=\"$2\"\r\n    if [ $statusCode -eq 0 ]; then\r\n        logMsg \"$message ..Executed OK, $statusCode\"\r\n    else\r\n        logErr \"$message ..Execution failed with code. $statusCode\"\r\n    fi\r\n}\r\n\r\n# Wait for the EBS volumes to become ready\r\n\r\nlogMsg \"Waiting for EBS mount /dev/xvdf\"\r\naws --region $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/[a-z]$//') ec2 wait volume-in-use --filters Name=attachment.instance-id,Values=$(curl -s http://169.254.169.254/latest/meta-data/instance-id) Name=attachment.device,Values=/dev/xvdf\r\nret=$?\r\nhasItRun \"$ret\" \"/dev/xvdf is aws mounted?\"\r\n\r\n# Create FS and make entry into /etc/fstab\r\nif ! $(blkid -p /dev/xvdf \u0026\u003e/dev/null); then\r\n  logMsg \"/dev/xvdf is not mounted, First run...formatting device.\"\r\n  mkfs.ext4 \"/dev/xvdf\" -L NEO4J\r\n  ret=$?\r\n  hasItRun \"$ret\" \"/dev/xvdf is formatted?\"\r\n\r\n  logMsg \"Fetching UUID..\"\r\n  uuid=$(sudo blkid -p /dev/xvdf | awk '{print $3}' | sed 's/\"//g')\r\n  logMsg \"$uuid\"\r\n  cp -fp /etc/fstab /etc/fstab.bak\r\n\r\n  mkdir -p /var/neo4j\r\n  mount \"/dev/xvdf\" \"/var/neo4j\"\r\n  \r\n  logMsg \"Mount checks\"\r\n  df -k /var/neo4j\r\n\r\n  #Persist the setting \r\n  #UUID=a2fc8833-86dd-42c6-af77-6510651f4e3a     /           xfs    defaults,noatime  1   1\r\n  \r\n  echo \"$uuid     /var/neo4j           ext4    defaults,nofail  0   2\" \u003e\u003e /etc/fstab\r\n  ret=$?\r\n  hasItRun \"$ret\" \"Fstab entry\"\r\n\r\n  ls -ltr /etc/fstab*\r\nfi\r\n\r\n# Mount the drives to check fstab errors\r\nmount -a\r\nret=$?\r\nhasItRun \"$ret\" \"/dev/xvdf mount command worked fine?..\"  \r\n",
+                "content_type": "text/x-shellscript",
+                "filename": "",
+                "merge_type": ""
+              },
+              {
+                "content": "\r\n#!/bin/bash\r\n\r\nlogMsg() {\r\n    echo -ne \"HERE\u003e\u003e\u003e\u003e\u003e INFO  : $1\\n\"\r\n}\r\n\r\nlogMsg \"Setting users and directories\"\r\nadduser neo4j\r\nmkdir -p /var/neo4j/certificates\r\nmkdir -p /var/neo4j/certificates/https\r\nmkdir -p /var/neo4j/certificates/https/trusted\r\nmkdir -p /var/neo4j/certificates/https/revoked\r\nmkdir -p /var/neo4j/certificates/bolt\r\nmkdir -p /var/neo4j/certificates/bolt/trusted\r\nmkdir -p /var/neo4j/certificates/bolt/revoked\r\nmkdir -p /var/neo4j/certificates/cluster\r\nmkdir -p /var/neo4j/certificates/cluster/revoked\r\nmkdir -p /var/neo4j/certificates/cluster/trusted\r\nmkdir -p /var/neo4j/data\r\nmkdir -p /var/neo4j/data/transactions\r\nmkdir -p /var/neo4j/data/dumps\r\nmkdir -p /var/neo4j/data/backup\r\nmkdir -p /var/neo4j/licenses\r\nmkdir -p /var/neo4j/metrics\r\nmkdir -p /var/neo4j/plugins\r\nmkdir -p /var/neo4j/logs\r\nmkdir -p /var/neo4j/run\r\n\r\necho \"neo4j        soft  nproc  65536\" \u003e\u003e /etc/security/limits.conf\r\necho \"neo4j        hard  nproc  65536\" \u003e\u003e /etc/security/limits.conf\r\necho \"neo4j        soft  nofile  50000\" \u003e\u003e /etc/security/limits.conf\r\necho \"neo4j        hard  nofile  50000\" \u003e\u003e /etc/security/limits.conf\r\n#     \u003cdomain\u003e        \u003ctype\u003e  \u003citem\u003e  \u003cvalue\u003e\r\n\r\nchown -R neo4j:neo4j /var/neo4j \r\n",
+                "content_type": "text/x-shellscript",
+                "filename": "",
+                "merge_type": ""
+              },
+              {
+                "content": "\r\n#!/bin/bash\r\n\r\nlogMsg() {\r\n    date=`date +%d-%b-%y\" \"%H:%M:%S`\r\n    echo -ne \"$date HERE\u003e\u003e\u003e\u003e\u003e INFO  : $1\\n\"\r\n}\r\n\r\nTOKEN=`curl -X PUT \"http://169.254.169.254/latest/api/token\" -H \"X-aws-ec2-metadata-token-ttl-seconds: 21600\"`\r\nAZID=`curl -H \"X-aws-ec2-metadata-token: $TOKEN\" -v http://169.254.169.254/latest/meta-data/availability-zone-id`\r\n\r\nlogMsg \"AZID: $AZID\"\r\n\r\naws s3 cp s3://lab01s3tf/infrastructure/graphDB/conf/$AZIDcore /var/neo4j/conf/neo4j.conf\r\nchown neo4j:neo4j /var/neo4j/conf/neo4j.conf\r\n\r\n# Try to move from  Vault\r\naws s3 cp s3://lab01s3tf/infrastructure/graphDB/licenses/bloom.license /var/neo4j/licenses/bloom.license\r\nchown neo4j:neo4j /var/neo4j/licenses/bloom.license\r\n# Try to move from  Vault\r\naws s3 cp s3://lab01s3tf/infrastructure/graphDB/cert/private.key /var/neo4j/certificates/https/trusted\r\nchown neo4j:neo4j  /var/neo4j/certificates/https/trusted\r\ncp -fp /var/neo4j/certificates/https/trusted/private.key /var/neo4j/certificates/bolt/trusted\r\ncp -fp /var/neo4j/certificates/https/trusted/private.key /var/neo4j/certificates/cluster/trusted\r\n\r\n",
+                "content_type": "text/cloud-config",
+                "filename": "",
+                "merge_type": ""
+              }
+            ],
+            "rendered": "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"
+          },
+          "sensitive_attributes": []
+        },
+        {
+          "index_key": 2,
+          "schema_version": 0,
+          "attributes": {
+            "base64_encode": true,
+            "gzip": true,
+            "id": "3150567312",
+            "part": [
+              {
+                "content": "package_update:true    \r\npackages:\r\n  - awscli\r\n  - telnet\r\n  - git\r\n  - unzip\r\n  - zip\r\n",
+                "content_type": "text/cloud-config",
+                "filename": "",
+                "merge_type": ""
+              },
+              {
+                "content": "mounts:\r\n  - [ \"LABEL=NEO4J\", \"/var/neo4j\", ext4, \"defaults,nofail\", \"0\", \"2\" ]\r\nfs_setup:\r\n  - label: NEO4J\r\n    filesystem: ext4\r\n    device: \"/dev/xvdf\"\r\n    partition: auto\r\nruncmd:\r\n  - mkdir -p /var/neo4j\r\n",
+                "content_type": "text/cloud-config",
+                "filename": "",
+                "merge_type": ""
+              },
+              {
+                "content": "#!/bin/bash\r\n\r\nlogMsg() {\r\n    date=`date +%d-%b-%y\" \"%H:%M:%S`\r\n    echo -ne \"HERE\u003e\u003e\u003e\u003e\u003e $date : INFO  : $1\\n\"\r\n}\r\n\r\nhasItRun() {\r\n    statusCode=$1\r\n    message=\"$2\"\r\n    if [ $statusCode -eq 0 ]; then\r\n        logMsg \"$message ..Executed OK, $statusCode\"\r\n    else\r\n        logErr \"$message ..Execution failed with code. $statusCode\"\r\n    fi\r\n}\r\n\r\n# Wait for the EBS volumes to become ready\r\n\r\nlogMsg \"Waiting for EBS mount /dev/xvdf\"\r\naws --region $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/[a-z]$//') ec2 wait volume-in-use --filters Name=attachment.instance-id,Values=$(curl -s http://169.254.169.254/latest/meta-data/instance-id) Name=attachment.device,Values=/dev/xvdf\r\nret=$?\r\nhasItRun \"$ret\" \"/dev/xvdf is aws mounted?\"\r\n\r\n# Create FS and make entry into /etc/fstab\r\nif ! $(blkid -p /dev/xvdf \u0026\u003e/dev/null); then\r\n  logMsg \"/dev/xvdf is not mounted, First run...formatting device.\"\r\n  mkfs.ext4 \"/dev/xvdf\" -L NEO4J\r\n  ret=$?\r\n  hasItRun \"$ret\" \"/dev/xvdf is formatted?\"\r\n\r\n  logMsg \"Fetching UUID..\"\r\n  uuid=$(sudo blkid -p /dev/xvdf | awk '{print $3}' | sed 's/\"//g')\r\n  logMsg \"$uuid\"\r\n  cp -fp /etc/fstab /etc/fstab.bak\r\n\r\n  mkdir -p /var/neo4j\r\n  mount \"/dev/xvdf\" \"/var/neo4j\"\r\n  \r\n  logMsg \"Mount checks\"\r\n  df -k /var/neo4j\r\n\r\n  #Persist the setting \r\n  #UUID=a2fc8833-86dd-42c6-af77-6510651f4e3a     /           xfs    defaults,noatime  1   1\r\n  \r\n  echo \"$uuid     /var/neo4j           ext4    defaults,nofail  0   2\" \u003e\u003e /etc/fstab\r\n  ret=$?\r\n  hasItRun \"$ret\" \"Fstab entry\"\r\n\r\n  ls -ltr /etc/fstab*\r\nfi\r\n\r\n# Mount the drives to check fstab errors\r\nmount -a\r\nret=$?\r\nhasItRun \"$ret\" \"/dev/xvdf mount command worked fine?..\"  \r\n",
+                "content_type": "text/x-shellscript",
+                "filename": "",
+                "merge_type": ""
+              },
+              {
+                "content": "\r\n#!/bin/bash\r\n\r\nlogMsg() {\r\n    echo -ne \"HERE\u003e\u003e\u003e\u003e\u003e INFO  : $1\\n\"\r\n}\r\n\r\nlogMsg \"Setting users and directories\"\r\nadduser neo4j\r\nmkdir -p /var/neo4j/certificates\r\nmkdir -p /var/neo4j/certificates/https\r\nmkdir -p /var/neo4j/certificates/https/trusted\r\nmkdir -p /var/neo4j/certificates/https/revoked\r\nmkdir -p /var/neo4j/certificates/bolt\r\nmkdir -p /var/neo4j/certificates/bolt/trusted\r\nmkdir -p /var/neo4j/certificates/bolt/revoked\r\nmkdir -p /var/neo4j/certificates/cluster\r\nmkdir -p /var/neo4j/certificates/cluster/revoked\r\nmkdir -p /var/neo4j/certificates/cluster/trusted\r\nmkdir -p /var/neo4j/data\r\nmkdir -p /var/neo4j/data/transactions\r\nmkdir -p /var/neo4j/data/dumps\r\nmkdir -p /var/neo4j/data/backup\r\nmkdir -p /var/neo4j/licenses\r\nmkdir -p /var/neo4j/metrics\r\nmkdir -p /var/neo4j/plugins\r\nmkdir -p /var/neo4j/logs\r\nmkdir -p /var/neo4j/run\r\n\r\necho \"neo4j        soft  nproc  65536\" \u003e\u003e /etc/security/limits.conf\r\necho \"neo4j        hard  nproc  65536\" \u003e\u003e /etc/security/limits.conf\r\necho \"neo4j        soft  nofile  50000\" \u003e\u003e /etc/security/limits.conf\r\necho \"neo4j        hard  nofile  50000\" \u003e\u003e /etc/security/limits.conf\r\n#     \u003cdomain\u003e        \u003ctype\u003e  \u003citem\u003e  \u003cvalue\u003e\r\n\r\nchown -R neo4j:neo4j /var/neo4j \r\n",
+                "content_type": "text/x-shellscript",
+                "filename": "",
+                "merge_type": ""
+              },
+              {
+                "content": "\r\n#!/bin/bash\r\n\r\nlogMsg() {\r\n    date=`date +%d-%b-%y\" \"%H:%M:%S`\r\n    echo -ne \"$date HERE\u003e\u003e\u003e\u003e\u003e INFO  : $1\\n\"\r\n}\r\n\r\nTOKEN=`curl -X PUT \"http://169.254.169.254/latest/api/token\" -H \"X-aws-ec2-metadata-token-ttl-seconds: 21600\"`\r\nAZID=`curl -H \"X-aws-ec2-metadata-token: $TOKEN\" -v http://169.254.169.254/latest/meta-data/availability-zone-id`\r\n\r\nlogMsg \"AZID: $AZID\"\r\n\r\naws s3 cp s3://lab01s3tf/infrastructure/graphDB/conf/$AZIDcore /var/neo4j/conf/neo4j.conf\r\nchown neo4j:neo4j /var/neo4j/conf/neo4j.conf\r\n\r\n# Try to move from  Vault\r\naws s3 cp s3://lab01s3tf/infrastructure/graphDB/licenses/bloom.license /var/neo4j/licenses/bloom.license\r\nchown neo4j:neo4j /var/neo4j/licenses/bloom.license\r\n# Try to move from  Vault\r\naws s3 cp s3://lab01s3tf/infrastructure/graphDB/cert/private.key /var/neo4j/certificates/https/trusted\r\nchown neo4j:neo4j  /var/neo4j/certificates/https/trusted\r\ncp -fp /var/neo4j/certificates/https/trusted/private.key /var/neo4j/certificates/bolt/trusted\r\ncp -fp /var/neo4j/certificates/https/trusted/private.key /var/neo4j/certificates/cluster/trusted\r\n\r\n",
+                "content_type": "text/cloud-config",
+                "filename": "",
+                "merge_type": ""
+              }
+            ],
+            "rendered": "H4sIAAAAAAAA/7xXbXPbuBH+rhn9hz1GruPWICS/JeVFzuRFnrgX2zd567Vp5gwBSwkVCbDAUrZyl//eAUlZci07ci8TfZAgYvHsYvHg2eULawgNsXezAhPIy4x0IRzxXF+i+hGGtjRKuFk/Ojk+GTw/e3/68tmbf0St8I99QOe1NQn04m671W4xtmzUbl1hO2F8io4NjLRKm1ECj4aalgwq54SXxGVmS8WkNaketVsnOscbbgohJ2KEv5aFEoQJuRIBAK4mfNJuATAQF15muh4TZgapHo90MyjNZ13Uw2rw3XaQ29LQPMyPEL1+9nzwun86ONv7W7QNEZ8Kxw3avX9H24CXtLcNkcJUlBn5bWNTobNg1g1fOxF8ardS/6tHKosGMhNDzBKoAMMTgFRn6GeeME8qxPqpwqmWmEDEFU755VSlUT0RKKCpClmUZNstVxqZqwY+nyjtgBWwCPRbJe+S+TFmmZdOF3RL9h78wIfa8KHw4/A3s6MTP3q4Bb81mxKE/fPwDX/ZUGxjyDZmEUQbr5KNk2Tj7XlthXJsgRmE6NXgzeAwfKBTLUrg+PToDCCBTu9fJmq3vgQvY+GP6U1pFn48CSr9C6uw3+nVj3L0XoywH3V2mkTqFD5CZ2EKDP8DXfj0I9AYTW0TPvUmIOo0EBDHg0uUJaGCs5+2lyEaZMw8Xls/cG7Fem0NBMKgggtNY5BWYbwCLtXNRh/A34UmSK0LIcLg+VuY2qzM0QNZGKK0OYJDoWaL5EMU1mgzqpaFJRXDYZlW4sIDYw5HIaLOQ1m6DJiHMVGRcN47+Gu8s78XN788E4SeeI4kmBIkeJEJiTka4mIqdCaGOtM0Y5+tQfgdPCrY9PyjYJ8/dTjf3AKUO3ARNlIHz7RhpUdgLNUZofNwKnLsCyIhxwE21saTMBKZVtsfRFai798/yiWQrRse6ts2B7/KTbvlkPqdpwuOQdRxSNHStQTtg5zVaUX1NKpP6oXDwNijtyCMglxMENCQm4E2ZIEjSZ56EsN2S6fwA3QeDrOJVtXNvUL+02E1NmWWbS1YOT/XaxEYS/MItuFIO0/gShPHcWpdLqgiQL3JuGJVPkl9HNRmWWCAvV4I03znAHfvvXEw3/kiviMkOQ5+378/fhnXbstSq37noS+VhRUb/h3ExQQ2fyucNgSd3S+bCwJFnI82t5YddAJaBSsLYGmxlNWlYTwUkzqwldoIzX1YTsOyygeLZacnlbUco5z4alKlwCb/I7cAD34Oyuipuqge6wOoJkI2+mInlY8f7+6yxwdKsb0decBE+ugRO9jvdQ/2e+ke7opKPDgsPpepryvDVbkRpHME6AFAbx5opZ51bmqEq8iWoKqTv44VlAigCwA7ERweXqPonWw4qhJekXvOAA8sI7cE8ed2K6hYuBh1AkNalNPTWrqqdEJ9cuicdb4pxMDEWnewNpY2z8Ntu7BuggpSbfBpHEchL9+vBH61CK4qb6vK2pxxbxv2lD5oY9if0g4lWacxUFAoFaagYd8KlnOJjnSqZdDEr1vwIKlr23FypSdUa9s7nNrJWvZDm9GaZveIojJfPwiZBWC3vuX9se8OPlSv22c4Bf4KGbqJW86sMlNlftuZVvNDISdlsdog0xKNv406OZLT8pbJIitH+rbAMju6ZcaVJlyBWsuuiZe3KQGYwlkJcLC/v3uwUCuPsnSaZjzTuSYfh0Z/JchYOPWHQZpIbOjfAfa73W73/w/lPigPqoVPlM2FNodzoCc0K/AQ4IkmzMPvNDQzhyGNcmwvDLA3tUQktf+luvAdX6+++StC/WJwt5K+O/tpcNo/rzvGX+Dn9+8gurttFIXmZCdoImCvIPqFiQvPUO6w0E+G+8KqWUaUMY/SGuUT2OkddLvRebv17J/HL+fu7lidQKeKLAI2XbuNvdFiM63Ol8tFcJ5AJ/xU5Tj0pn43tEh+N+E8E8Nuz+9SyrVJnfDkSkmlQz5yohi/fM7D8fFqubQOr0lXmKmGDRFrXq0m1U3rQNx3bhbqfW6nCKmzOcCH0H/cP8q5JPFhZm0eN39XidZ1i68Efduibxh5KAC8cHoqCOMJztatrjfjXntl0x2vY71WZNcL7jeHv1EVb+oTY+3WfwMAAP//jAunJR8TAAA="
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_ebs_volume",
+      "name": "ebs_data_block",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ec2:us-east-1:322676149291:volume/vol-0e74e8ef68eadac70",
+            "availability_zone": "us-east-1a",
+            "encrypted": true,
+            "final_snapshot": false,
+            "id": "vol-0e74e8ef68eadac70",
+            "iops": 100,
+            "kms_key_id": "arn:aws:kms:us-east-1:322676149291:key/19186ee6-bcd8-410b-bc12-40c6ca559f41",
+            "multi_attach_enabled": false,
+            "outpost_arn": "",
+            "size": 8,
+            "snapshot_id": "",
+            "tags": {
+              "Environment": "develop",
+              "Name": "tflab-develop-neo4j-core-1",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop"
+            },
+            "tags_all": {
+              "Environment": "develop",
+              "Name": "tflab-develop-neo4j-core-1",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop"
+            },
+            "throughput": 0,
+            "timeouts": null,
+            "type": "gp2"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_security_group.sg",
+            "data.template_cloudinit_config.userdata",
+            "module.neo4j.aws_iam_instance_profile.profile",
+            "module.neo4j.aws_iam_role.role",
+            "module.neo4j.aws_instance.instance"
+          ]
+        },
+        {
+          "index_key": 1,
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ec2:us-east-1:322676149291:volume/vol-05698de08b5c4fd02",
+            "availability_zone": "us-east-1b",
+            "encrypted": true,
+            "final_snapshot": false,
+            "id": "vol-05698de08b5c4fd02",
+            "iops": 100,
+            "kms_key_id": "arn:aws:kms:us-east-1:322676149291:key/19186ee6-bcd8-410b-bc12-40c6ca559f41",
+            "multi_attach_enabled": false,
+            "outpost_arn": "",
+            "size": 8,
+            "snapshot_id": "",
+            "tags": {
+              "Environment": "develop",
+              "Name": "tflab-develop-neo4j-core-2",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop"
+            },
+            "tags_all": {
+              "Environment": "develop",
+              "Name": "tflab-develop-neo4j-core-2",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop"
+            },
+            "throughput": 0,
+            "timeouts": null,
+            "type": "gp2"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_security_group.sg",
+            "data.template_cloudinit_config.userdata",
+            "module.neo4j.aws_iam_instance_profile.profile",
+            "module.neo4j.aws_iam_role.role",
+            "module.neo4j.aws_instance.instance"
+          ]
+        },
+        {
+          "index_key": 2,
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ec2:us-east-1:322676149291:volume/vol-048c4335da998f3ae",
+            "availability_zone": "us-east-1c",
+            "encrypted": true,
+            "final_snapshot": false,
+            "id": "vol-048c4335da998f3ae",
+            "iops": 100,
+            "kms_key_id": "arn:aws:kms:us-east-1:322676149291:key/19186ee6-bcd8-410b-bc12-40c6ca559f41",
+            "multi_attach_enabled": false,
+            "outpost_arn": "",
+            "size": 8,
+            "snapshot_id": "",
+            "tags": {
+              "Environment": "develop",
+              "Name": "tflab-develop-neo4j-core-3",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop"
+            },
+            "tags_all": {
+              "Environment": "develop",
+              "Name": "tflab-develop-neo4j-core-3",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop"
+            },
+            "throughput": 0,
+            "timeouts": null,
+            "type": "gp2"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwLCJ1cGRhdGUiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "aws_security_group.sg",
+            "data.template_cloudinit_config.userdata",
+            "module.neo4j.aws_iam_instance_profile.profile",
+            "module.neo4j.aws_iam_role.role",
+            "module.neo4j.aws_instance.instance"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_policy",
+      "name": "cwlogs",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::322676149291:policy/CustomerManaged_tflab_develop_neo4j_cwlog-write",
+            "description": "",
+            "id": "arn:aws:iam::322676149291:policy/CustomerManaged_tflab_develop_neo4j_cwlog-write",
+            "name": "CustomerManaged_tflab_develop_neo4j_cwlog-write",
+            "name_prefix": null,
+            "path": "/",
+            "policy": "{\"Statement\":[{\"Action\":[\"logs:PutLogEvents\",\"logs:DescribeLogStreams\",\"logs:DescribeLogGroups\",\"logs:CreateLogStream\",\"logs:CreateLogGroup\"],\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"\"}],\"Version\":\"2012-10-17\"}",
+            "policy_id": "ANPAUWIH7JQVXS2ZXDUFV",
+            "tags": {},
+            "tags_all": {}
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_iam_policy_document.cwlogs"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_policy",
+      "name": "instances",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::322676149291:policy/CustomerManaged_tflab_develop_neo4j_ec2-desc",
+            "description": "",
+            "id": "arn:aws:iam::322676149291:policy/CustomerManaged_tflab_develop_neo4j_ec2-desc",
+            "name": "CustomerManaged_tflab_develop_neo4j_ec2-desc",
+            "name_prefix": null,
+            "path": "/",
+            "policy": "{\"Statement\":[{\"Action\":[\"ec2:DescribeVolumeStatus\",\"ec2:DescribeVolume*\",\"ec2:DescribeSnapshots\",\"ec2:DescribeInstances\",\"ec2:DescribeInstanceStatus\"],\"Effect\":\"Allow\",\"Resource\":\"*\",\"Sid\":\"\"}],\"Version\":\"2012-10-17\"}",
+            "policy_id": "ANPAUWIH7JQVVMSFT6ONM",
+            "tags": {},
+            "tags_all": {}
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_iam_policy_document.instances"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy_attachment",
+      "name": "cwlogs_core",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "id": "CustomerManaged_tflab_develop_neo4j-20220818091810203700000004",
+            "policy_arn": "arn:aws:iam::322676149291:policy/CustomerManaged_tflab_develop_neo4j_cwlog-write",
+            "role": "CustomerManaged_tflab_develop_neo4j"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_policy.cwlogs",
+            "data.aws_iam_policy_document.cwlogs",
+            "module.neo4j.aws_iam_role.role"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy_attachment",
+      "name": "instances_core",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "CustomerManaged_tflab_develop_neo4j-20220818091810199700000002",
+            "policy_arn": "arn:aws:iam::322676149291:policy/CustomerManaged_tflab_develop_neo4j_ec2-desc",
+            "role": "CustomerManaged_tflab_develop_neo4j"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_policy.instances",
+            "data.aws_iam_policy_document.instances",
+            "module.neo4j.aws_iam_role.role"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lb",
+      "name": "nlb",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "access_logs": [
+              {
+                "bucket": "",
+                "enabled": false,
+                "prefix": ""
+              }
+            ],
+            "arn": "arn:aws:elasticloadbalancing:us-east-1:322676149291:loadbalancer/net/tflab-nlb-neo4j/8dbfd0e97854d677",
+            "arn_suffix": "net/tflab-nlb-neo4j/8dbfd0e97854d677",
+            "customer_owned_ipv4_pool": "",
+            "desync_mitigation_mode": null,
+            "dns_name": "tflab-nlb-neo4j-8dbfd0e97854d677.elb.us-east-1.amazonaws.com",
+            "drop_invalid_header_fields": null,
+            "enable_cross_zone_load_balancing": false,
+            "enable_deletion_protection": false,
+            "enable_http2": null,
+            "enable_waf_fail_open": null,
+            "id": "arn:aws:elasticloadbalancing:us-east-1:322676149291:loadbalancer/net/tflab-nlb-neo4j/8dbfd0e97854d677",
+            "idle_timeout": null,
+            "internal": true,
+            "ip_address_type": "ipv4",
+            "load_balancer_type": "network",
+            "name": "tflab-nlb-neo4j",
+            "name_prefix": null,
+            "preserve_host_header": null,
+            "security_groups": [],
+            "subnet_mapping": [
+              {
+                "allocation_id": "",
+                "ipv6_address": "",
+                "outpost_id": "",
+                "private_ipv4_address": "",
+                "subnet_id": "subnet-05c5770492fcc600c"
+              },
+              {
+                "allocation_id": "",
+                "ipv6_address": "",
+                "outpost_id": "",
+                "private_ipv4_address": "",
+                "subnet_id": "subnet-0b30e0986b6eba8fa"
+              },
+              {
+                "allocation_id": "",
+                "ipv6_address": "",
+                "outpost_id": "",
+                "private_ipv4_address": "",
+                "subnet_id": "subnet-0f79b2600322b6dca"
+              }
+            ],
+            "subnets": [
+              "subnet-05c5770492fcc600c",
+              "subnet-0b30e0986b6eba8fa",
+              "subnet-0f79b2600322b6dca"
+            ],
+            "tags": {
+              "Environment": "develop",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop"
+            },
+            "tags_all": {
+              "Environment": "develop",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-082432fe921a8ecf4",
+            "zone_id": "Z26RNL4JYFTOTI"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19"
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lb_listener",
+      "name": "bolt_listener",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "alpn_policy": null,
+            "arn": "arn:aws:elasticloadbalancing:us-east-1:322676149291:listener/net/tflab-nlb-neo4j/8dbfd0e97854d677/e316f0e70af1ce95",
+            "certificate_arn": null,
+            "default_action": [
+              {
+                "authenticate_cognito": [],
+                "authenticate_oidc": [],
+                "fixed_response": [],
+                "forward": [],
+                "order": 1,
+                "redirect": [],
+                "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-bolt-target/f4984d7291ca7133",
+                "type": "forward"
+              }
+            ],
+            "id": "arn:aws:elasticloadbalancing:us-east-1:322676149291:listener/net/tflab-nlb-neo4j/8dbfd0e97854d677/e316f0e70af1ce95",
+            "load_balancer_arn": "arn:aws:elasticloadbalancing:us-east-1:322676149291:loadbalancer/net/tflab-nlb-neo4j/8dbfd0e97854d677",
+            "port": 7687,
+            "protocol": "TCP",
+            "ssl_policy": "",
+            "tags": {},
+            "tags_all": {},
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsicmVhZCI6NjAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "aws_lb.nlb",
+            "aws_lb_target_group.bolt_target"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lb_listener",
+      "name": "https_listener",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "alpn_policy": null,
+            "arn": "arn:aws:elasticloadbalancing:us-east-1:322676149291:listener/net/tflab-nlb-neo4j/8dbfd0e97854d677/07838a538fa55d62",
+            "certificate_arn": null,
+            "default_action": [
+              {
+                "authenticate_cognito": [],
+                "authenticate_oidc": [],
+                "fixed_response": [],
+                "forward": [],
+                "order": 1,
+                "redirect": [],
+                "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-https-target/ef83880a73d057f5",
+                "type": "forward"
+              }
+            ],
+            "id": "arn:aws:elasticloadbalancing:us-east-1:322676149291:listener/net/tflab-nlb-neo4j/8dbfd0e97854d677/07838a538fa55d62",
+            "load_balancer_arn": "arn:aws:elasticloadbalancing:us-east-1:322676149291:loadbalancer/net/tflab-nlb-neo4j/8dbfd0e97854d677",
+            "port": 7473,
+            "protocol": "TCP",
+            "ssl_policy": "",
+            "tags": {},
+            "tags_all": {},
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsicmVhZCI6NjAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "aws_lb.nlb",
+            "aws_lb_target_group.https_target"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lb_target_group",
+      "name": "bolt_target",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-bolt-target/f4984d7291ca7133",
+            "arn_suffix": "targetgroup/tflab-bolt-target/f4984d7291ca7133",
+            "connection_termination": false,
+            "deregistration_delay": "300",
+            "health_check": [
+              {
+                "enabled": true,
+                "healthy_threshold": 3,
+                "interval": 30,
+                "matcher": "",
+                "path": "",
+                "port": "traffic-port",
+                "protocol": "TCP",
+                "timeout": 10,
+                "unhealthy_threshold": 3
+              }
+            ],
+            "id": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-bolt-target/f4984d7291ca7133",
+            "lambda_multi_value_headers_enabled": false,
+            "load_balancing_algorithm_type": null,
+            "name": "tflab-bolt-target",
+            "name_prefix": null,
+            "port": 7687,
+            "preserve_client_ip": "true",
+            "protocol": "TCP",
+            "protocol_version": null,
+            "proxy_protocol_v2": false,
+            "slow_start": 0,
+            "stickiness": [
+              {
+                "cookie_duration": 0,
+                "cookie_name": "",
+                "enabled": false,
+                "type": "source_ip"
+              }
+            ],
+            "tags": {
+              "Environment": "develop",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop"
+            },
+            "tags_all": {
+              "Environment": "develop",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop"
+            },
+            "target_type": "instance",
+            "vpc_id": "vpc-082432fe921a8ecf4"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lb_target_group",
+      "name": "https_target",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-https-target/ef83880a73d057f5",
+            "arn_suffix": "targetgroup/tflab-https-target/ef83880a73d057f5",
+            "connection_termination": false,
+            "deregistration_delay": "300",
+            "health_check": [
+              {
+                "enabled": true,
+                "healthy_threshold": 3,
+                "interval": 30,
+                "matcher": "",
+                "path": "",
+                "port": "traffic-port",
+                "protocol": "TCP",
+                "timeout": 10,
+                "unhealthy_threshold": 3
+              }
+            ],
+            "id": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-https-target/ef83880a73d057f5",
+            "lambda_multi_value_headers_enabled": false,
+            "load_balancing_algorithm_type": null,
+            "name": "tflab-https-target",
+            "name_prefix": null,
+            "port": 7473,
+            "preserve_client_ip": "true",
+            "protocol": "TCP",
+            "protocol_version": null,
+            "proxy_protocol_v2": false,
+            "slow_start": 0,
+            "stickiness": [
+              {
+                "cookie_duration": 0,
+                "cookie_name": "",
+                "enabled": false,
+                "type": "source_ip"
+              }
+            ],
+            "tags": {
+              "Environment": "develop",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop"
+            },
+            "tags_all": {
+              "Environment": "develop",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop"
+            },
+            "target_type": "instance",
+            "vpc_id": "vpc-082432fe921a8ecf4"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "create_before_destroy": true
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lb_target_group_attachment",
+      "name": "bolt_attach",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": "i-0185af9d4fa38e1af",
+          "schema_version": 0,
+          "attributes": {
+            "availability_zone": null,
+            "id": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-bolt-target/f4984d7291ca7133-20220818094351790000000002",
+            "port": 7687,
+            "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-bolt-target/f4984d7291ca7133",
+            "target_id": "i-0185af9d4fa38e1af"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_lb_target_group.bolt_target",
+            "module.neo4j.aws_instance.instance"
+          ]
+        },
+        {
+          "index_key": "i-07b34f13471d59592",
+          "schema_version": 0,
+          "attributes": {
+            "availability_zone": null,
+            "id": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-bolt-target/f4984d7291ca7133-20220818094352094300000004",
+            "port": 7687,
+            "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-bolt-target/f4984d7291ca7133",
+            "target_id": "i-07b34f13471d59592"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_lb_target_group.bolt_target",
+            "module.neo4j.aws_instance.instance"
+          ]
+        },
+        {
+          "index_key": "i-0afdeaf6b22afe4d4",
+          "schema_version": 0,
+          "attributes": {
+            "availability_zone": null,
+            "id": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-bolt-target/f4984d7291ca7133-20220818094351836100000003",
+            "port": 7687,
+            "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-bolt-target/f4984d7291ca7133",
+            "target_id": "i-0afdeaf6b22afe4d4"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_lb_target_group.bolt_target",
+            "module.neo4j.aws_instance.instance"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_lb_target_group_attachment",
+      "name": "https_attach",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": "i-0185af9d4fa38e1af",
+          "schema_version": 0,
+          "attributes": {
+            "availability_zone": null,
+            "id": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-https-target/ef83880a73d057f5-20220818094352172100000005",
+            "port": 7473,
+            "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-https-target/ef83880a73d057f5",
+            "target_id": "i-0185af9d4fa38e1af"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_lb_target_group.https_target",
+            "module.neo4j.aws_instance.instance"
+          ]
+        },
+        {
+          "index_key": "i-07b34f13471d59592",
+          "schema_version": 0,
+          "attributes": {
+            "availability_zone": null,
+            "id": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-https-target/ef83880a73d057f5-20220818094352209500000006",
+            "port": 7473,
+            "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-https-target/ef83880a73d057f5",
+            "target_id": "i-07b34f13471d59592"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_lb_target_group.https_target",
+            "module.neo4j.aws_instance.instance"
+          ]
+        },
+        {
+          "index_key": "i-0afdeaf6b22afe4d4",
+          "schema_version": 0,
+          "attributes": {
+            "availability_zone": null,
+            "id": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-https-target/ef83880a73d057f5-20220818094351751000000001",
+            "port": 7473,
+            "target_group_arn": "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-https-target/ef83880a73d057f5",
+            "target_id": "i-0afdeaf6b22afe4d4"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_lb_target_group.https_target",
+            "module.neo4j.aws_instance.instance"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_route53_record",
+      "name": "dns_record",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 2,
+          "attributes": {
+            "alias": [],
+            "allow_overwrite": null,
+            "failover_routing_policy": [],
+            "fqdn": "tflab-neo4j-core-01.cmcloudlab737.info",
+            "geolocation_routing_policy": [],
+            "health_check_id": "",
+            "id": "Z06581502AXE1J58OSN9N_tflab-neo4j-core-01.cmcloudlab737.info_A",
+            "latency_routing_policy": [],
+            "multivalue_answer_routing_policy": null,
+            "name": "tflab-neo4j-core-01.cmcloudlab737.info",
+            "records": [
+              "172.31.81.155"
+            ],
+            "set_identifier": "",
+            "ttl": 60,
+            "type": "A",
+            "weighted_routing_policy": [],
+            "zone_id": "Z06581502AXE1J58OSN9N"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjIifQ==",
+          "dependencies": [
+            "aws_security_group.sg",
+            "data.aws_route53_zone.domain",
+            "data.template_cloudinit_config.userdata",
+            "module.neo4j.aws_iam_instance_profile.profile",
+            "module.neo4j.aws_iam_role.role",
+            "module.neo4j.aws_instance.instance"
+          ]
+        },
+        {
+          "index_key": 1,
+          "schema_version": 2,
+          "attributes": {
+            "alias": [],
+            "allow_overwrite": null,
+            "failover_routing_policy": [],
+            "fqdn": "tflab-neo4j-core-02.cmcloudlab737.info",
+            "geolocation_routing_policy": [],
+            "health_check_id": "",
+            "id": "Z06581502AXE1J58OSN9N_tflab-neo4j-core-02.cmcloudlab737.info_A",
+            "latency_routing_policy": [],
+            "multivalue_answer_routing_policy": null,
+            "name": "tflab-neo4j-core-02.cmcloudlab737.info",
+            "records": [
+              "172.31.18.129"
+            ],
+            "set_identifier": "",
+            "ttl": 60,
+            "type": "A",
+            "weighted_routing_policy": [],
+            "zone_id": "Z06581502AXE1J58OSN9N"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjIifQ==",
+          "dependencies": [
+            "aws_security_group.sg",
+            "data.aws_route53_zone.domain",
+            "data.template_cloudinit_config.userdata",
+            "module.neo4j.aws_iam_instance_profile.profile",
+            "module.neo4j.aws_iam_role.role",
+            "module.neo4j.aws_instance.instance"
+          ]
+        },
+        {
+          "index_key": 2,
+          "schema_version": 2,
+          "attributes": {
+            "alias": [],
+            "allow_overwrite": null,
+            "failover_routing_policy": [],
+            "fqdn": "tflab-neo4j-core-03.cmcloudlab737.info",
+            "geolocation_routing_policy": [],
+            "health_check_id": "",
+            "id": "Z06581502AXE1J58OSN9N_tflab-neo4j-core-03.cmcloudlab737.info_A",
+            "latency_routing_policy": [],
+            "multivalue_answer_routing_policy": null,
+            "name": "tflab-neo4j-core-03.cmcloudlab737.info",
+            "records": [
+              "172.31.34.15"
+            ],
+            "set_identifier": "",
+            "ttl": 60,
+            "type": "A",
+            "weighted_routing_policy": [],
+            "zone_id": "Z06581502AXE1J58OSN9N"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjIifQ==",
+          "dependencies": [
+            "aws_security_group.sg",
+            "data.aws_route53_zone.domain",
+            "data.template_cloudinit_config.userdata",
+            "module.neo4j.aws_iam_instance_profile.profile",
+            "module.neo4j.aws_iam_role.role",
+            "module.neo4j.aws_instance.instance"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_security_group",
+      "name": "sg",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:us-east-1:322676149291:security-group/sg-027d834729e1adb8b",
+            "description": "Security group for the tflab Neo4j cluster",
+            "egress": [
+              {
+                "cidr_blocks": [],
+                "description": "",
+                "from_port": 5000,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "tcp",
+                "security_groups": [],
+                "self": true,
+                "to_port": 5000
+              },
+              {
+                "cidr_blocks": [],
+                "description": "",
+                "from_port": 6000,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "tcp",
+                "security_groups": [],
+                "self": true,
+                "to_port": 6000
+              },
+              {
+                "cidr_blocks": [],
+                "description": "",
+                "from_port": 7000,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "tcp",
+                "security_groups": [],
+                "self": true,
+                "to_port": 7000
+              }
+            ],
+            "id": "sg-027d834729e1adb8b",
+            "ingress": [
+              {
+                "cidr_blocks": [],
+                "description": "",
+                "from_port": 5000,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "tcp",
+                "security_groups": [],
+                "self": true,
+                "to_port": 5000
+              },
+              {
+                "cidr_blocks": [],
+                "description": "",
+                "from_port": 6000,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "tcp",
+                "security_groups": [],
+                "self": true,
+                "to_port": 6000
+              },
+              {
+                "cidr_blocks": [],
+                "description": "",
+                "from_port": 7000,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "tcp",
+                "security_groups": [],
+                "self": true,
+                "to_port": 7000
+              },
+              {
+                "cidr_blocks": [],
+                "description": "",
+                "from_port": 7473,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "tcp",
+                "security_groups": [
+                  "sg-0014c55ccc502904d"
+                ],
+                "self": false,
+                "to_port": 7473
+              },
+              {
+                "cidr_blocks": [],
+                "description": "",
+                "from_port": 9000,
+                "ipv6_cidr_blocks": [],
+                "prefix_list_ids": [],
+                "protocol": "tcp",
+                "security_groups": [
+                  "sg-0014c55ccc502904d"
+                ],
+                "self": false,
+                "to_port": 9000
+              }
+            ],
+            "name": "tflab-develop-neo4j-sgPrimary20220818091809586300000001",
+            "name_prefix": "tflab-develop-neo4j-sgPrimary",
+            "owner_id": "322676149291",
+            "revoke_rules_on_delete": false,
+            "tags": {
+              "Environment": "develop",
+              "Name": "tflab-develop-neo4j",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop"
+            },
+            "tags_all": {
+              "Environment": "develop",
+              "Name": "tflab-develop-neo4j",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop"
+            },
+            "timeouts": null,
+            "vpc_id": "vpc-082432fe921a8ecf4"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6OTAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_security_group_rule",
+      "name": "egress_discovery",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 2,
+          "attributes": {
+            "cidr_blocks": null,
+            "description": "",
+            "from_port": 5000,
+            "id": "sgrule-100758812",
+            "ipv6_cidr_blocks": null,
+            "prefix_list_ids": null,
+            "protocol": "tcp",
+            "security_group_id": "sg-027d834729e1adb8b",
+            "self": true,
+            "source_security_group_id": null,
+            "timeouts": null,
+            "to_port": 5000,
+            "type": "egress"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDB9LCJzY2hlbWFfdmVyc2lvbiI6IjIifQ==",
+          "dependencies": [
+            "aws_security_group.sg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_security_group_rule",
+      "name": "egress_neo4j_bolt",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 2,
+          "attributes": {
+            "cidr_blocks": null,
+            "description": "",
+            "from_port": 9000,
+            "id": "sgrule-1762429421",
+            "ipv6_cidr_blocks": null,
+            "prefix_list_ids": null,
+            "protocol": "tcp",
+            "security_group_id": "sg-0014c55ccc502904d",
+            "self": false,
+            "source_security_group_id": "sg-027d834729e1adb8b",
+            "timeouts": null,
+            "to_port": 9000,
+            "type": "egress"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDB9LCJzY2hlbWFfdmVyc2lvbiI6IjIifQ==",
+          "dependencies": [
+            "aws_security_group.sg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_security_group_rule",
+      "name": "egress_neo4j_https",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 2,
+          "attributes": {
+            "cidr_blocks": null,
+            "description": "",
+            "from_port": 7473,
+            "id": "sgrule-3601130861",
+            "ipv6_cidr_blocks": null,
+            "prefix_list_ids": null,
+            "protocol": "tcp",
+            "security_group_id": "sg-0014c55ccc502904d",
+            "self": false,
+            "source_security_group_id": "sg-027d834729e1adb8b",
+            "timeouts": null,
+            "to_port": 7473,
+            "type": "egress"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDB9LCJzY2hlbWFfdmVyc2lvbiI6IjIifQ==",
+          "dependencies": [
+            "aws_security_group.sg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_security_group_rule",
+      "name": "egress_raft",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 2,
+          "attributes": {
+            "cidr_blocks": null,
+            "description": "",
+            "from_port": 7000,
+            "id": "sgrule-1212573039",
+            "ipv6_cidr_blocks": null,
+            "prefix_list_ids": null,
+            "protocol": "tcp",
+            "security_group_id": "sg-027d834729e1adb8b",
+            "self": true,
+            "source_security_group_id": null,
+            "timeouts": null,
+            "to_port": 7000,
+            "type": "egress"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDB9LCJzY2hlbWFfdmVyc2lvbiI6IjIifQ==",
+          "dependencies": [
+            "aws_security_group.sg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_security_group_rule",
+      "name": "egress_transaction",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 2,
+          "attributes": {
+            "cidr_blocks": null,
+            "description": "",
+            "from_port": 6000,
+            "id": "sgrule-2195549814",
+            "ipv6_cidr_blocks": null,
+            "prefix_list_ids": null,
+            "protocol": "tcp",
+            "security_group_id": "sg-027d834729e1adb8b",
+            "self": true,
+            "source_security_group_id": null,
+            "timeouts": null,
+            "to_port": 6000,
+            "type": "egress"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDB9LCJzY2hlbWFfdmVyc2lvbiI6IjIifQ==",
+          "dependencies": [
+            "aws_security_group.sg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_security_group_rule",
+      "name": "ingress_discovery",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 2,
+          "attributes": {
+            "cidr_blocks": null,
+            "description": "",
+            "from_port": 5000,
+            "id": "sgrule-1836275505",
+            "ipv6_cidr_blocks": null,
+            "prefix_list_ids": null,
+            "protocol": "tcp",
+            "security_group_id": "sg-027d834729e1adb8b",
+            "self": true,
+            "source_security_group_id": null,
+            "timeouts": null,
+            "to_port": 5000,
+            "type": "ingress"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDB9LCJzY2hlbWFfdmVyc2lvbiI6IjIifQ==",
+          "dependencies": [
+            "aws_security_group.sg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_security_group_rule",
+      "name": "ingress_neo4j_bolt",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 2,
+          "attributes": {
+            "cidr_blocks": null,
+            "description": "",
+            "from_port": 9000,
+            "id": "sgrule-2429242314",
+            "ipv6_cidr_blocks": null,
+            "prefix_list_ids": null,
+            "protocol": "tcp",
+            "security_group_id": "sg-027d834729e1adb8b",
+            "self": false,
+            "source_security_group_id": "sg-0014c55ccc502904d",
+            "timeouts": null,
+            "to_port": 9000,
+            "type": "ingress"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDB9LCJzY2hlbWFfdmVyc2lvbiI6IjIifQ==",
+          "dependencies": [
+            "aws_security_group.sg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_security_group_rule",
+      "name": "ingress_neo4j_https",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 2,
+          "attributes": {
+            "cidr_blocks": null,
+            "description": "",
+            "from_port": 7473,
+            "id": "sgrule-2110546054",
+            "ipv6_cidr_blocks": null,
+            "prefix_list_ids": null,
+            "protocol": "tcp",
+            "security_group_id": "sg-027d834729e1adb8b",
+            "self": false,
+            "source_security_group_id": "sg-0014c55ccc502904d",
+            "timeouts": null,
+            "to_port": 7473,
+            "type": "ingress"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDB9LCJzY2hlbWFfdmVyc2lvbiI6IjIifQ==",
+          "dependencies": [
+            "aws_security_group.sg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_security_group_rule",
+      "name": "ingress_raft",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 2,
+          "attributes": {
+            "cidr_blocks": null,
+            "description": "",
+            "from_port": 7000,
+            "id": "sgrule-2754687143",
+            "ipv6_cidr_blocks": null,
+            "prefix_list_ids": null,
+            "protocol": "tcp",
+            "security_group_id": "sg-027d834729e1adb8b",
+            "self": true,
+            "source_security_group_id": null,
+            "timeouts": null,
+            "to_port": 7000,
+            "type": "ingress"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDB9LCJzY2hlbWFfdmVyc2lvbiI6IjIifQ==",
+          "dependencies": [
+            "aws_security_group.sg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_security_group_rule",
+      "name": "ingress_transaction",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 2,
+          "attributes": {
+            "cidr_blocks": null,
+            "description": "",
+            "from_port": 6000,
+            "id": "sgrule-3230663532",
+            "ipv6_cidr_blocks": null,
+            "prefix_list_ids": null,
+            "protocol": "tcp",
+            "security_group_id": "sg-027d834729e1adb8b",
+            "self": true,
+            "source_security_group_id": null,
+            "timeouts": null,
+            "to_port": 6000,
+            "type": "ingress"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDB9LCJzY2hlbWFfdmVyc2lvbiI6IjIifQ==",
+          "dependencies": [
+            "aws_security_group.sg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_volume_attachment",
+      "name": "ebs_attach",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "device_name": "/dev/xvdf",
+            "force_detach": null,
+            "id": "vai-2461233957",
+            "instance_id": "i-0185af9d4fa38e1af",
+            "skip_destroy": null,
+            "stop_instance_before_detaching": null,
+            "timeouts": null,
+            "volume_id": "vol-0e74e8ef68eadac70"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "aws_ebs_volume.ebs_data_block",
+            "aws_security_group.sg",
+            "data.template_cloudinit_config.userdata",
+            "module.neo4j.aws_iam_instance_profile.profile",
+            "module.neo4j.aws_iam_role.role",
+            "module.neo4j.aws_instance.instance"
+          ]
+        },
+        {
+          "index_key": 1,
+          "schema_version": 0,
+          "attributes": {
+            "device_name": "/dev/xvdf",
+            "force_detach": null,
+            "id": "vai-963942050",
+            "instance_id": "i-0afdeaf6b22afe4d4",
+            "skip_destroy": null,
+            "stop_instance_before_detaching": null,
+            "timeouts": null,
+            "volume_id": "vol-05698de08b5c4fd02"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "aws_ebs_volume.ebs_data_block",
+            "aws_security_group.sg",
+            "data.template_cloudinit_config.userdata",
+            "module.neo4j.aws_iam_instance_profile.profile",
+            "module.neo4j.aws_iam_role.role",
+            "module.neo4j.aws_instance.instance"
+          ]
+        },
+        {
+          "index_key": 2,
+          "schema_version": 0,
+          "attributes": {
+            "device_name": "/dev/xvdf",
+            "force_detach": null,
+            "id": "vai-3417681746",
+            "instance_id": "i-07b34f13471d59592",
+            "skip_destroy": null,
+            "stop_instance_before_detaching": null,
+            "timeouts": null,
+            "volume_id": "vol-048c4335da998f3ae"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozMDAwMDAwMDAwMDAsImRlbGV0ZSI6MzAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "aws_ebs_volume.ebs_data_block",
+            "aws_security_group.sg",
+            "data.template_cloudinit_config.userdata",
+            "module.neo4j.aws_iam_instance_profile.profile",
+            "module.neo4j.aws_iam_role.role",
+            "module.neo4j.aws_instance.instance"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.neo4j",
+      "mode": "managed",
+      "type": "aws_iam_instance_profile",
+      "name": "profile",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::322676149291:instance-profile/CustomerManaged_tflab_develop_neo4j",
+            "create_date": "2022-08-18T09:18:10Z",
+            "id": "CustomerManaged_tflab_develop_neo4j",
+            "name": "CustomerManaged_tflab_develop_neo4j",
+            "name_prefix": null,
+            "path": "/",
+            "role": "CustomerManaged_tflab_develop_neo4j",
+            "tags": {},
+            "tags_all": {},
+            "unique_id": "AIPAUWIH7JQVUH6HBR6EK"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "module.neo4j.aws_iam_role.role"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.neo4j",
+      "mode": "managed",
+      "type": "aws_iam_policy",
+      "name": "policy",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::322676149291:policy/CustomerManaged_tflab_develop_neo4j_s3-policy",
+            "description": "",
+            "id": "arn:aws:iam::322676149291:policy/CustomerManaged_tflab_develop_neo4j_s3-policy",
+            "name": "CustomerManaged_tflab_develop_neo4j_s3-policy",
+            "name_prefix": null,
+            "path": "/",
+            "policy": "{\"Statement\":[{\"Action\":[\"s3:GetBucketLocation\",\"s3:GetAccountPublicAccessBlock\",\"s3:ListAccessPoints\",\"s3:ListAllMyBuckets\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::*\",\"Sid\":\"AllowAccountLevelS3Actions\"},{\"Action\":[\"s3:Get*\",\"s3:List*\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:s3:::lab01s3tf/*\",\"arn:aws:s3:::lab01s3tf\"],\"Sid\":\"AllowListAndReadS3ActionOnTFBucket\"}],\"Version\":\"2012-10-17\"}",
+            "policy_id": "ANPAUWIH7JQVQ6QDML6KH",
+            "tags": {},
+            "tags_all": {}
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "module": "module.neo4j",
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "role",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::322676149291:role/CustomerManaged_tflab_develop_neo4j",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"ec2.amazonaws.com\"},\"Sid\":\"\"}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2022-08-18T09:18:09Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "CustomerManaged_tflab_develop_neo4j",
+            "inline_policy": [],
+            "managed_policy_arns": [
+              "arn:aws:iam::322676149291:policy/CustomerManaged_tflab_develop_neo4j_cwlog-write",
+              "arn:aws:iam::322676149291:policy/CustomerManaged_tflab_develop_neo4j_ec2-desc",
+              "arn:aws:iam::322676149291:policy/CustomerManaged_tflab_develop_neo4j_s3-policy"
+            ],
+            "max_session_duration": 3600,
+            "name": "CustomerManaged_tflab_develop_neo4j",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": {},
+            "tags_all": {},
+            "unique_id": "AROAUWIH7JQVZ4A3U3YCJ"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "module": "module.neo4j",
+      "mode": "managed",
+      "type": "aws_iam_role_policy_attachment",
+      "name": "policy_atach_role",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "id": "CustomerManaged_tflab_develop_neo4j-20220818091810200100000003",
+            "policy_arn": "arn:aws:iam::322676149291:policy/CustomerManaged_tflab_develop_neo4j_s3-policy",
+            "role": "CustomerManaged_tflab_develop_neo4j"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "module.neo4j.aws_iam_policy.policy",
+            "module.neo4j.aws_iam_role.role"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.neo4j",
+      "mode": "managed",
+      "type": "aws_instance",
+      "name": "instance",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 1,
+          "attributes": {
+            "ami": "ami-020ef1e2f6c2cc6d6",
+            "arn": "arn:aws:ec2:us-east-1:322676149291:instance/i-0185af9d4fa38e1af",
+            "associate_public_ip_address": false,
+            "availability_zone": "us-east-1a",
+            "capacity_reservation_specification": [
+              {
+                "capacity_reservation_preference": "open",
+                "capacity_reservation_target": []
+              }
+            ],
+            "cpu_core_count": 2,
+            "cpu_threads_per_core": 1,
+            "credit_specification": [
+              {
+                "cpu_credits": "standard"
+              }
+            ],
+            "disable_api_stop": false,
+            "disable_api_termination": false,
+            "ebs_block_device": [
+              {
+                "delete_on_termination": false,
+                "device_name": "/dev/xvdf",
+                "encrypted": true,
+                "iops": 100,
+                "kms_key_id": "arn:aws:kms:us-east-1:322676149291:key/19186ee6-bcd8-410b-bc12-40c6ca559f41",
+                "snapshot_id": "",
+                "tags": {
+                  "Environment": "develop",
+                  "Name": "tflab-develop-neo4j-core-1",
+                  "Project": "tflab",
+                  "TagEnvironment": "develop",
+                  "TagExtra": "develop-workspace",
+                  "TagWorkspace": "develop"
+                },
+                "throughput": 0,
+                "volume_id": "vol-0e74e8ef68eadac70",
+                "volume_size": 8,
+                "volume_type": "gp2"
+              }
+            ],
+            "ebs_optimized": false,
+            "enclave_options": [
+              {
+                "enabled": false
+              }
+            ],
+            "ephemeral_block_device": [],
+            "get_password_data": false,
+            "hibernation": false,
+            "host_id": null,
+            "iam_instance_profile": "CustomerManaged_tflab_develop_neo4j",
+            "id": "i-0185af9d4fa38e1af",
+            "instance_initiated_shutdown_behavior": "stop",
+            "instance_state": "running",
+            "instance_type": "t4g.micro",
+            "ipv6_address_count": 0,
+            "ipv6_addresses": [],
+            "key_name": "tf_key",
+            "launch_template": [],
+            "maintenance_options": [
+              {
+                "auto_recovery": "default"
+              }
+            ],
+            "metadata_options": [
+              {
+                "http_endpoint": "enabled",
+                "http_put_response_hop_limit": 3,
+                "http_tokens": "optional",
+                "instance_metadata_tags": "enabled"
+              }
+            ],
+            "monitoring": false,
+            "network_interface": [],
+            "outpost_arn": "",
+            "password_data": "",
+            "placement_group": "",
+            "placement_partition_number": null,
+            "primary_network_interface_id": "eni-0cf0a31c29a344ac6",
+            "private_dns": "ip-172-31-81-155.ec2.internal",
+            "private_dns_name_options": [
+              {
+                "enable_resource_name_dns_a_record": false,
+                "enable_resource_name_dns_aaaa_record": false,
+                "hostname_type": "ip-name"
+              }
+            ],
+            "private_ip": "172.31.81.155",
+            "public_dns": "",
+            "public_ip": "",
+            "root_block_device": [
+              {
+                "delete_on_termination": true,
+                "device_name": "/dev/xvda",
+                "encrypted": true,
+                "iops": 100,
+                "kms_key_id": "arn:aws:kms:us-east-1:322676149291:key/19186ee6-bcd8-410b-bc12-40c6ca559f41",
+                "tags": {},
+                "throughput": 0,
+                "volume_id": "vol-0c7f0d372adf9916e",
+                "volume_size": 8,
+                "volume_type": "gp2"
+              }
+            ],
+            "secondary_private_ips": [],
+            "security_groups": [
+              "default",
+              "tflab-develop-neo4j-sgPrimary20220818091809586300000001"
+            ],
+            "source_dest_check": true,
+            "subnet_id": "subnet-0f79b2600322b6dca",
+            "tags": {
+              "Environment": "develop",
+              "Function": "neo4j",
+              "Name": "tflab-develop-neo4j1",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop",
+              "neo4j": "core"
+            },
+            "tags_all": {
+              "Environment": "develop",
+              "Function": "neo4j",
+              "Name": "tflab-develop-neo4j1",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop",
+              "neo4j": "core"
+            },
+            "tenancy": "default",
+            "timeouts": null,
+            "user_data": "5464afc80001962eeb262796f373d0da62cd0023",
+            "user_data_base64": null,
+            "user_data_replace_on_change": false,
+            "volume_tags": null,
+            "vpc_security_group_ids": [
+              "sg-0014c55ccc502904d",
+              "sg-027d834729e1adb8b"
+            ]
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTIwMDAwMDAwMDAwMCwidXBkYXRlIjo2MDAwMDAwMDAwMDB9LCJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "aws_security_group.sg",
+            "data.template_cloudinit_config.userdata",
+            "module.neo4j.aws_iam_instance_profile.profile",
+            "module.neo4j.aws_iam_role.role"
+          ]
+        },
+        {
+          "index_key": 1,
+          "schema_version": 1,
+          "attributes": {
+            "ami": "ami-020ef1e2f6c2cc6d6",
+            "arn": "arn:aws:ec2:us-east-1:322676149291:instance/i-0afdeaf6b22afe4d4",
+            "associate_public_ip_address": false,
+            "availability_zone": "us-east-1b",
+            "capacity_reservation_specification": [
+              {
+                "capacity_reservation_preference": "open",
+                "capacity_reservation_target": []
+              }
+            ],
+            "cpu_core_count": 2,
+            "cpu_threads_per_core": 1,
+            "credit_specification": [
+              {
+                "cpu_credits": "standard"
+              }
+            ],
+            "disable_api_stop": false,
+            "disable_api_termination": false,
+            "ebs_block_device": [
+              {
+                "delete_on_termination": false,
+                "device_name": "/dev/xvdf",
+                "encrypted": true,
+                "iops": 100,
+                "kms_key_id": "arn:aws:kms:us-east-1:322676149291:key/19186ee6-bcd8-410b-bc12-40c6ca559f41",
+                "snapshot_id": "",
+                "tags": {
+                  "Environment": "develop",
+                  "Name": "tflab-develop-neo4j-core-2",
+                  "Project": "tflab",
+                  "TagEnvironment": "develop",
+                  "TagExtra": "develop-workspace",
+                  "TagWorkspace": "develop"
+                },
+                "throughput": 0,
+                "volume_id": "vol-05698de08b5c4fd02",
+                "volume_size": 8,
+                "volume_type": "gp2"
+              }
+            ],
+            "ebs_optimized": false,
+            "enclave_options": [
+              {
+                "enabled": false
+              }
+            ],
+            "ephemeral_block_device": [],
+            "get_password_data": false,
+            "hibernation": false,
+            "host_id": null,
+            "iam_instance_profile": "CustomerManaged_tflab_develop_neo4j",
+            "id": "i-0afdeaf6b22afe4d4",
+            "instance_initiated_shutdown_behavior": "stop",
+            "instance_state": "running",
+            "instance_type": "t4g.micro",
+            "ipv6_address_count": 0,
+            "ipv6_addresses": [],
+            "key_name": "tf_key",
+            "launch_template": [],
+            "maintenance_options": [
+              {
+                "auto_recovery": "default"
+              }
+            ],
+            "metadata_options": [
+              {
+                "http_endpoint": "enabled",
+                "http_put_response_hop_limit": 3,
+                "http_tokens": "optional",
+                "instance_metadata_tags": "enabled"
+              }
+            ],
+            "monitoring": false,
+            "network_interface": [],
+            "outpost_arn": "",
+            "password_data": "",
+            "placement_group": "",
+            "placement_partition_number": null,
+            "primary_network_interface_id": "eni-093ffdc1557847489",
+            "private_dns": "ip-172-31-18-129.ec2.internal",
+            "private_dns_name_options": [
+              {
+                "enable_resource_name_dns_a_record": false,
+                "enable_resource_name_dns_aaaa_record": false,
+                "hostname_type": "ip-name"
+              }
+            ],
+            "private_ip": "172.31.18.129",
+            "public_dns": "",
+            "public_ip": "",
+            "root_block_device": [
+              {
+                "delete_on_termination": true,
+                "device_name": "/dev/xvda",
+                "encrypted": true,
+                "iops": 100,
+                "kms_key_id": "arn:aws:kms:us-east-1:322676149291:key/19186ee6-bcd8-410b-bc12-40c6ca559f41",
+                "tags": {},
+                "throughput": 0,
+                "volume_id": "vol-00e8e0440be77034f",
+                "volume_size": 8,
+                "volume_type": "gp2"
+              }
+            ],
+            "secondary_private_ips": [],
+            "security_groups": [
+              "default",
+              "tflab-develop-neo4j-sgPrimary20220818091809586300000001"
+            ],
+            "source_dest_check": true,
+            "subnet_id": "subnet-05c5770492fcc600c",
+            "tags": {
+              "Environment": "develop",
+              "Function": "neo4j",
+              "Name": "tflab-develop-neo4j2",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop",
+              "neo4j": "core"
+            },
+            "tags_all": {
+              "Environment": "develop",
+              "Function": "neo4j",
+              "Name": "tflab-develop-neo4j2",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop",
+              "neo4j": "core"
+            },
+            "tenancy": "default",
+            "timeouts": null,
+            "user_data": "5464afc80001962eeb262796f373d0da62cd0023",
+            "user_data_base64": null,
+            "user_data_replace_on_change": false,
+            "volume_tags": null,
+            "vpc_security_group_ids": [
+              "sg-0014c55ccc502904d",
+              "sg-027d834729e1adb8b"
+            ]
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTIwMDAwMDAwMDAwMCwidXBkYXRlIjo2MDAwMDAwMDAwMDB9LCJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "aws_security_group.sg",
+            "data.template_cloudinit_config.userdata",
+            "module.neo4j.aws_iam_instance_profile.profile",
+            "module.neo4j.aws_iam_role.role"
+          ]
+        },
+        {
+          "index_key": 2,
+          "schema_version": 1,
+          "attributes": {
+            "ami": "ami-020ef1e2f6c2cc6d6",
+            "arn": "arn:aws:ec2:us-east-1:322676149291:instance/i-07b34f13471d59592",
+            "associate_public_ip_address": false,
+            "availability_zone": "us-east-1c",
+            "capacity_reservation_specification": [
+              {
+                "capacity_reservation_preference": "open",
+                "capacity_reservation_target": []
+              }
+            ],
+            "cpu_core_count": 2,
+            "cpu_threads_per_core": 1,
+            "credit_specification": [
+              {
+                "cpu_credits": "standard"
+              }
+            ],
+            "disable_api_stop": false,
+            "disable_api_termination": false,
+            "ebs_block_device": [
+              {
+                "delete_on_termination": false,
+                "device_name": "/dev/xvdf",
+                "encrypted": true,
+                "iops": 100,
+                "kms_key_id": "arn:aws:kms:us-east-1:322676149291:key/19186ee6-bcd8-410b-bc12-40c6ca559f41",
+                "snapshot_id": "",
+                "tags": {
+                  "Environment": "develop",
+                  "Name": "tflab-develop-neo4j-core-3",
+                  "Project": "tflab",
+                  "TagEnvironment": "develop",
+                  "TagExtra": "develop-workspace",
+                  "TagWorkspace": "develop"
+                },
+                "throughput": 0,
+                "volume_id": "vol-048c4335da998f3ae",
+                "volume_size": 8,
+                "volume_type": "gp2"
+              }
+            ],
+            "ebs_optimized": false,
+            "enclave_options": [
+              {
+                "enabled": false
+              }
+            ],
+            "ephemeral_block_device": [],
+            "get_password_data": false,
+            "hibernation": false,
+            "host_id": null,
+            "iam_instance_profile": "CustomerManaged_tflab_develop_neo4j",
+            "id": "i-07b34f13471d59592",
+            "instance_initiated_shutdown_behavior": "stop",
+            "instance_state": "running",
+            "instance_type": "t4g.micro",
+            "ipv6_address_count": 0,
+            "ipv6_addresses": [],
+            "key_name": "tf_key",
+            "launch_template": [],
+            "maintenance_options": [
+              {
+                "auto_recovery": "default"
+              }
+            ],
+            "metadata_options": [
+              {
+                "http_endpoint": "enabled",
+                "http_put_response_hop_limit": 3,
+                "http_tokens": "optional",
+                "instance_metadata_tags": "enabled"
+              }
+            ],
+            "monitoring": false,
+            "network_interface": [],
+            "outpost_arn": "",
+            "password_data": "",
+            "placement_group": "",
+            "placement_partition_number": null,
+            "primary_network_interface_id": "eni-0b9f42cbb2d929784",
+            "private_dns": "ip-172-31-34-15.ec2.internal",
+            "private_dns_name_options": [
+              {
+                "enable_resource_name_dns_a_record": false,
+                "enable_resource_name_dns_aaaa_record": false,
+                "hostname_type": "ip-name"
+              }
+            ],
+            "private_ip": "172.31.34.15",
+            "public_dns": "",
+            "public_ip": "",
+            "root_block_device": [
+              {
+                "delete_on_termination": true,
+                "device_name": "/dev/xvda",
+                "encrypted": true,
+                "iops": 100,
+                "kms_key_id": "arn:aws:kms:us-east-1:322676149291:key/19186ee6-bcd8-410b-bc12-40c6ca559f41",
+                "tags": {},
+                "throughput": 0,
+                "volume_id": "vol-0b663730165ee424d",
+                "volume_size": 8,
+                "volume_type": "gp2"
+              }
+            ],
+            "secondary_private_ips": [],
+            "security_groups": [
+              "default",
+              "tflab-develop-neo4j-sgPrimary20220818091809586300000001"
+            ],
+            "source_dest_check": true,
+            "subnet_id": "subnet-0b30e0986b6eba8fa",
+            "tags": {
+              "Environment": "develop",
+              "Function": "neo4j",
+              "Name": "tflab-develop-neo4j3",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop",
+              "neo4j": "core"
+            },
+            "tags_all": {
+              "Environment": "develop",
+              "Function": "neo4j",
+              "Name": "tflab-develop-neo4j3",
+              "Project": "tflab",
+              "TagEnvironment": "develop",
+              "TagExtra": "develop-workspace",
+              "TagWorkspace": "develop",
+              "neo4j": "core"
+            },
+            "tenancy": "default",
+            "timeouts": null,
+            "user_data": "5464afc80001962eeb262796f373d0da62cd0023",
+            "user_data_base64": null,
+            "user_data_replace_on_change": false,
+            "volume_tags": null,
+            "vpc_security_group_ids": [
+              "sg-0014c55ccc502904d",
+              "sg-027d834729e1adb8b"
+            ]
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTIwMDAwMDAwMDAwMCwidXBkYXRlIjo2MDAwMDAwMDAwMDB9LCJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "aws_security_group.sg",
+            "data.template_cloudinit_config.userdata",
+            "module.neo4j.aws_iam_instance_profile.profile",
+            "module.neo4j.aws_iam_role.role"
+          ]
+        }
+      ]
+    }
+  ]
+}

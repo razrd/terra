@@ -3,6 +3,11 @@ module "is_ebs_optimised" {
   instance_type = var.instance_type
 }
 
+module "get_policy_arn" {
+  source        = "../get_policy_arn"
+  boundary_policy_name = var.role_permissions_boundary
+}
+
 resource "aws_instance" "instance" {
   count                       = var.instance_count
   ami                         = var.ami

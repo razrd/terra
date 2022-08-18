@@ -1,5 +1,3 @@
-cloudwatch_logs_enabled=true
-
 project="tflab"
 environment="develop"
 
@@ -46,6 +44,8 @@ data_block_encrypted = true
 
 create_instance_profile = true
 instance_profile = "CustomerManaged_tflab_develop_ec2-role"
+role_permissions_boundary = "Playground_AWS_Sandbox"
+cloudwatch_logs_enabled = true
 
 nlb_enabled = true
 internal = true

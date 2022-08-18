@@ -59,6 +59,11 @@ resource "aws_lb" "nlb" {
         "Environment" = var.environment
         "Project"     = var.project
     })
+
+  depends_on = [
+    aws_lb_target_group.https_target,
+    aws_lb_target_group.bolt_target
+  ]
 }
 
 
@@ -88,17 +93,31 @@ resource "aws_lb_listener" "bolt_listener" {
 
 
 resource "aws_lb_target_group_attachment" "https_attach" {
-  for_each = toset(module.neo4j.instance_ids)
+  #for_each = toset(module.neo4j.instance_ids)
+  #count = length(module.neo4j.instance_ids) ? 1 : 0
+  count = var.nlb_enabled ? 1 : 0
   target_group_arn = aws_lb_target_group.https_target[0].arn
-  target_id        = each.key
+  target_id        = module.neo4j.instance_ids[count.index]
+  #target_id       = each.value
   port             = 7473
+
+  depends_on = [
+    aws_lb.nlb
+  ]
 }
 
 resource "aws_lb_target_group_attachment" "bolt_attach" {
-  for_each = toset(module.neo4j.instance_ids)
+  #for_each = toset(module.neo4j.instance_ids)
+  #count = length(module.neo4j.instance_ids) ? 1 : 0
+  count = var.nlb_enabled ? 1 : 0
   target_group_arn = aws_lb_target_group.bolt_target[0].arn
-  target_id        = each.key
+  target_id        = module.neo4j.instance_ids[count.index]
+  #target_id       = each.value
   port             = 7687
+
+  depends_on = [
+    aws_lb.nlb
+  ]
 }
 
 

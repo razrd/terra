@@ -7,7 +7,7 @@ resource "aws_iam_instance_profile" "profile" {
 resource "aws_iam_role" "role" {
   count = (var.create_instance_profile && var.instance_count != 0) ? 1 : 0
   name  = "CustomerManaged_${var.project}_${var.environment}_${var.name}"
-  permissions_boundary = var.role_permissions_boundary
+  permissions_boundary = module.get_policy_arn.boundary_policy_arn
   
   assume_role_policy = <<EOF
 {

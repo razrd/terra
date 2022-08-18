@@ -250,4 +250,10 @@ variable "ip_address_type" {
   type = string
   default =  "ipv4"
 }
+
+variable "role_permissions_boundary" {
+  description = "(string:optional) permissions boundary"
+  type = string
+  default = ""
+}
   
