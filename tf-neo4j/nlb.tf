@@ -94,8 +94,7 @@ resource "aws_lb_listener" "bolt_listener" {
 
 resource "aws_lb_target_group_attachment" "https_attach" {
   #for_each = toset(module.neo4j.instance_ids)
-  #count = length(module.neo4j.instance_ids) ? 1 : 0
-  count = var.nlb_enabled ? 1 : 0
+  count = var.nlb_enabled ? var.neo4j_instance_count : 0
   target_group_arn = aws_lb_target_group.https_target[0].arn
   target_id        = module.neo4j.instance_ids[count.index]
   #target_id       = each.value
@@ -108,8 +107,7 @@ resource "aws_lb_target_group_attachment" "https_attach" {
 
 resource "aws_lb_target_group_attachment" "bolt_attach" {
   #for_each = toset(module.neo4j.instance_ids)
-  #count = length(module.neo4j.instance_ids) ? 1 : 0
-  count = var.nlb_enabled ? 1 : 0
+  count = var.nlb_enabled ? var.neo4j_instance_count : 0
   target_group_arn = aws_lb_target_group.bolt_target[0].arn
   target_id        = module.neo4j.instance_ids[count.index]
   #target_id       = each.value
