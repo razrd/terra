@@ -212,7 +212,7 @@ variable "s3_bucket_ref" {
 
 variable "nlb_enabled" {
   description = "(boolean:required) Enables NLB creation for instances"
-  type = boolean
+  type = bool
   default =  false
 }
 
@@ -224,7 +224,7 @@ variable "load_balancer_type" {
 
 variable "internal" {
   description = "(boolean:required) default set as internal"
-  type = boolean
+  type = bool
   default =  true
 }
 
@@ -235,13 +235,13 @@ variable "idle_timeout" {
 
 variable "enable_cross_zone_load_balancing" {
   description = "(boolean:optional) cross az nlb setting"
-  type = boolean
+  type = bool
   default =  false
 }
 
 variable "enable_deletion_protection" {
   description = "(boolean:optional) delete protect for nlb"
-  type = boolean
+  type = bool
   default =  false
 }
   

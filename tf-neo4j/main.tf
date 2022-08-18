@@ -32,13 +32,6 @@ resource "aws_ebs_volume" "ebs_data_block" {
   iops              = var.volume_iops
   encrypted         = var.data_block_encrypted
   kms_key_id        = var.data_block_kms_key_id
-
-  lifecycle {
-    ignore_changes = [
-      user_data,
-      ebs_data_block
-    ]
-  }
   
   tags = merge(
     var.tags,

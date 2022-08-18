@@ -9,9 +9,12 @@ resource "aws_lb_target_group" "https_target" {
   vpc_id      = var.vpc_id
   port        = 7473
   protocol    = "TCP"
-  
-  tags = local.tags
-
+  tags = merge(
+    var.tags,
+    {
+        "Environment" = var.environment
+        "Project"     = var.project
+    })
   lifecycle {
     create_before_destroy = true
   }
@@ -25,7 +28,12 @@ resource "aws_lb_target_group" "bolt_target" {
   port        = 7687
   protocol    = "TCP"
   
-  tags = local.tags
+  tags = merge(
+    var.tags,
+    {
+        "Environment" = var.environment
+        "Project"     = var.project
+    })
 
   lifecycle {
     create_before_destroy = true
@@ -45,46 +53,51 @@ resource "aws_lb" "nlb" {
   enable_deletion_protection       = var.enable_deletion_protection
   ip_address_type                  = var.ip_address_type
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+        "Environment" = var.environment
+        "Project"     = var.project
+    })
 }
 
 
 resource "aws_lb_listener" "https_listener" {
   count = var.nlb_enabled ? 1 : 0
-  load_balancer_arn = aws_lb.nlb.arn
+  load_balancer_arn = aws_lb.nlb[count.index].arn
   port              = 7473
   protocol          = "TCP"
 
   default_action {
-    target_group_arn = aws_lb_target_group.https_target.arn
+    target_group_arn = aws_lb_target_group.https_target[count.index].arn
     type             = "forward"
   }
 }
 
 resource "aws_lb_listener" "bolt_listener" {
   count = var.nlb_enabled ? 1 : 0
-  load_balancer_arn = aws_lb.nlb.arn
+  load_balancer_arn = aws_lb.nlb[count.index].arn
   port              = 7687
   protocol          = "TCP"
 
   default_action {
-    target_group_arn = aws_lb_target_group.bolt_target.arn
+    target_group_arn = aws_lb_target_group.bolt_target[count.index].arn
     type             = "forward"
   }
 }
 
 
 resource "aws_lb_target_group_attachment" "https_attach" {
-  count = var.nlb_enabled ? 1 : 0  
-  target_group_arn = aws_lb_target_group.https_target.arn
-  target_id        = module.neo4j.instance_ids
+  for_each = toset(module.neo4j.instance_ids)
+  target_group_arn = aws_lb_target_group.https_target[0].arn
+  target_id        = each.key
   port             = 7473
 }
 
 resource "aws_lb_target_group_attachment" "bolt_attach" {
-  count = var.nlb_enabled ? 1 : 0
-  target_group_arn = aws_lb_target_group.bolt_target.arn
-  target_id        = module.neo4j.instance_ids
+  for_each = toset(module.neo4j.instance_ids)
+  target_group_arn = aws_lb_target_group.bolt_target[0].arn
+  target_id        = each.key
   port             = 7687
 }
 
