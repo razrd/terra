@@ -59,6 +59,7 @@ resource "aws_instance" "instance" {
     ignore_changes = [
       key_name,
       user_data,
+      root_block_device
     ]
   }
 

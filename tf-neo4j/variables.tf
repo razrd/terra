@@ -209,3 +209,10 @@ variable "s3_bucket_ref" {
   description = "(string:required) S3 bucket for IAM read/write, used for tf state and db confs"
   default = "lab01s3tf"
 }
+
+variable "nlb_enabled" {
+  description = "(boolean:required) Enables NLB creation for instances"
+  type = boolean
+  default =  true
+}
+

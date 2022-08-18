@@ -33,6 +33,13 @@ resource "aws_ebs_volume" "ebs_data_block" {
   encrypted         = var.data_block_encrypted
   kms_key_id        = var.data_block_kms_key_id
 
+  lifecycle {
+    ignore_changes = [
+      user_data,
+      ebs_data_block
+    ]
+  }
+  
   tags = merge(
     var.tags,
     {
@@ -211,19 +218,20 @@ AZID=`curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/lates
 
 logMsg "AZID: $AZID"
 
-aws s3 cp s3://${var.s3_bucket_ref}/infrastructure/graphdb/conf/$AZID${var.neo4j_key} /var/neo4j/conf/neo4j.conf
+aws s3 cp s3://${var.s3_bucket_ref}/infrastructure/graphDB/conf/$AZID${var.neo4j_key} /var/neo4j/conf/neo4j.conf
 chown neo4j:neo4j /var/neo4j/conf/neo4j.conf
 
-aws s3 cp s3://${var.s3_bucket_ref}/infrastructure/graphdb/licenses/bloom.license /var/neo4j/licenses/bloom.license
+# Try to move from  Vault
+aws s3 cp s3://${var.s3_bucket_ref}/infrastructure/graphDB/licenses/bloom.license /var/neo4j/licenses/bloom.license
 chown neo4j:neo4j /var/neo4j/licenses/bloom.license
-
-aws s3 cp s3://${var.s3_bucket_ref}/infrastructure/graphdb/cert/private.key /var/neo4j/certificates/https/trusted
+# Try to move from  Vault
+aws s3 cp s3://${var.s3_bucket_ref}/infrastructure/graphDB/cert/private.key /var/neo4j/certificates/https/trusted
 chown neo4j:neo4j  /var/neo4j/certificates/https/trusted
 cp -fp /var/neo4j/certificates/https/trusted/private.key /var/neo4j/certificates/bolt/trusted
 cp -fp /var/neo4j/certificates/https/trusted/private.key /var/neo4j/certificates/cluster/trusted
 
-
-
 EOF
   }
+# Add startup condition
+# Add restart condition
 }
