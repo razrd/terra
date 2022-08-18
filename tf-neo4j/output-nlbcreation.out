@@ -2273,3 +2273,55 @@
     }
   ]
 }
+
+
+bolt_listener_arn = [
+  "arn:aws:elasticloadbalancing:us-east-1:322676149291:listener/net/tflab-nlb-neo4j/3ef274236fc3d401/8fd83f765cac94b4",
+]
+bolt_target_group_arn = [
+  "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-bolt-target/67a4dfb6766b0446",
+]
+https_listener_arn = [
+  "arn:aws:elasticloadbalancing:us-east-1:322676149291:listener/net/tflab-nlb-neo4j/3ef274236fc3d401/c48eaa1ead1fc486",
+]
+https_target_group_arn = [
+  "arn:aws:elasticloadbalancing:us-east-1:322676149291:targetgroup/tflab-https-target/bca81d345d93d11e",
+]
+instance_ids = [
+  "i-067a4a4d91937262e",
+  "i-026db1253ce14dc70",
+  "i-0ef07673200900156",
+]
+instance_private_dns = [
+  "ip-172-31-94-97.ec2.internal",
+  "ip-172-31-23-81.ec2.internal",
+  "ip-172-31-43-99.ec2.internal",
+]
+instance_private_ips = [
+  "172.31.94.97",
+  "172.31.23.81",
+  "172.31.43.99",
+]
+instance_public_dns = [
+  "",
+  "",
+  "",
+]
+instance_public_ips = [
+  "",
+  "",
+  "",
+]
+instances_role_id = "CustomerManaged_tflab_develop_neo4j"
+loadbalancer_arn = [
+  "arn:aws:elasticloadbalancing:us-east-1:322676149291:loadbalancer/net/tflab-nlb-neo4j/3ef274236fc3d401",
+]
+loadbalancer_name = [
+  "tflab-nlb-neo4j",
+]
+route53_fqdns = [
+  "tflab-neo4j-core-01.cmcloudlab737.info",
+  "tflab-neo4j-core-02.cmcloudlab737.info",
+  "tflab-neo4j-core-03.cmcloudlab737.info",
+]
+sg_id = "sg-08dbde237134671e9"

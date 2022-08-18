@@ -37,3 +37,33 @@ output "route53_fqdns" {
   description = "List: Route 53 fqdns applied"
   value       = aws_route53_record.dns_record.*.fqdn
 }
+
+output "loadbalancer_arn" {
+  description = "((): Arn of the loadbalancer provisioned)"
+  value       = aws_lb.nlb.*.arn
+}
+
+output "loadbalancer_name" {
+  description = "((): Friendly name of the loadbalancer provisioned)"
+  value       = aws_lb.nlb.*.name
+}
+
+output "https_listener_arn" {
+  description = "((): https listener arn of the loadbalancer)"
+  value       = aws_lb_listener.https_listener.*.arn
+}
+
+output "bolt_listener_arn" {
+  description = "((): https listener arn of the loadbalancer)"
+  value       = aws_lb_listener.bolt_listener.*.arn
+}
+
+output "https_target_group_arn" {
+  description = "((): https target group arn of the loadbalancer)"
+  value       = aws_lb_target_group.https_target.*.arn
+}
+
+output "bolt_target_group_arn" {
+  description = "((): bolt target group arn of the loadbalancer)"
+  value       = aws_lb_target_group.bolt_target.*.arn
+}
