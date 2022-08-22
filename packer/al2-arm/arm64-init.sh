@@ -23,6 +23,9 @@ hasItRun() {
 sudo yum upgrade -y
 ret=$? && hasItRun $ret "Upgrade amz2"
 
+sudo adduser neo4j
+ret=$? && hasItRun $ret "user add"
+
 sudo yum -y install zip unzip jq telnet git wget
 ret=$? && hasItRun $ret "Component install for zip unzip jq telnet git wget"
 
