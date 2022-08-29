@@ -9,7 +9,7 @@ module "neo4j" {
   termination_protection = var.termination_protection
   key_name               = var.key_name
   subnets                = var.subnet_ids
-  sgs                    = [aws_security_group.sg.id, var.security_group_ids[0]]
+  sgs                    = flatten([aws_security_group.sg.id, var.security_group_ids])
   user_data              = data.template_cloudinit_config.userdata.*.rendered
   root_vl_encrypt        = var.root_vl_encrypt
   create_instance_profile = var.create_instance_profile
@@ -176,6 +176,7 @@ mkdir -p /var/neo4j/certificates/cluster
 mkdir -p /var/neo4j/certificates/cluster/revoked
 mkdir -p /var/neo4j/certificates/cluster/trusted
 mkdir -p /var/neo4j/data
+mkdir -p /var/neo4j/data/databases/
 mkdir -p /var/neo4j/data/transactions
 mkdir -p /var/neo4j/data/dumps
 mkdir -p /var/neo4j/data/backup
